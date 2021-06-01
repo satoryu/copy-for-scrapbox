@@ -5,9 +5,7 @@ Users can generate a link to the page in the current tab in Scrapbox format and 
 
 ## DEMO
 
-Please take a look at this demo:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/prKgvy8d9-c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Please take a look at [this demo](https://www.youtube.com/watch?v=prKgvy8d9-c).
 
 ## License
 
