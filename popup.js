@@ -1,3 +1,6 @@
+import { writeTextToClipboard } from './src/clipboard.js';
+import { findTabs } from './src/chrome.js';
+
 let messageBox = document.getElementById('message-box');
 let copyCurrentTabButton = document.getElementById('copy-current-tab-button');
 let copySelectedTabsButton = document.getElementById('copy-selected-tabs-button');
@@ -6,16 +9,8 @@ function createLinksForTabs(tabs) {
   return tabs.map(tab => ` [${tab.url} ${tab.title}]`).join("\n")
 }
 
-function writeTextToClipboard(text) {
-  return navigator.clipboard.writeText(text)
-}
-
 function appendMessage(messageElement) {
   messageBox.appendChild(messageElement)
-}
-
-function findTabs(queryOption) {
-  return chrome.tabs.query(queryOption)
 }
 
 copyCurrentTabButton.addEventListener('click', () => {

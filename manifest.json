@@ -18,5 +18,11 @@
     "32": "images/icon32.png",
     "128": "images/icon128.png"
   },
-  "permissions": ["tabs"]
+  "permissions": ["tabs"],
+  "web_accessible_resources": [
+    {
+      "resources": ["/src/*.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
