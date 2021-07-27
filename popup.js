@@ -1,15 +1,14 @@
 import { writeTextToClipboard } from './src/clipboard.js';
 import { findTabs } from './src/chrome.js';
+import { createLinksForTabs } from './src/link.js';
 
 let messageBox = document.getElementById('message-box');
 let copyCurrentTabButton = document.getElementById('copy-current-tab-button');
 let copySelectedTabsButton = document.getElementById('copy-selected-tabs-button');
 
-function createLinksForTabs(tabs) {
-  return tabs.map(tab => ` [${tab.url} ${tab.title}]`).join("\n")
-}
-
-function appendMessage(messageElement) {
+function appendMessage(messageText) {
+  let messageElement = document.createElement('p')
+  messageElement.innerText = messageText
   messageBox.appendChild(messageElement)
 }
 
@@ -19,9 +18,7 @@ copyCurrentTabButton.addEventListener('click', () => {
       let linkText = createLinksForTabs([tab])
 
       writeTextToClipboard(linkText).then(() => {
-        let element = document.createElement('p')
-        element.innerText = 'Copied!'
-        appendMessage(element)
+        appendMessage('Copied')
       })
     })
     .catch((err) => console.error(err))
@@ -33,9 +30,7 @@ copySelectedTabsButton.addEventListener('click', () => {
       let linkText = createLinksForTabs(tabs)
 
       writeTextToClipboard(linkText).then(() => {
-        let element = document.createElement('p')
-        element.innerText = 'Copied Selected Tabs!'
-        appendMessage(element)
+        appendMessage('Copied Selected Tabs!')
       })
     })
     .catch((err) => console.error(err))
