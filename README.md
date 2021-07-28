@@ -3,13 +3,13 @@
 This is a Chrome extension which helps [scrapbox](https://scrapbox.io/) users to create a link.
 Users can generate a link to the page in the current tab in Scrapbox format and copy it to their clipboad.
 
-## Install
-
-Visit [Chrome Web Store](https://chrome.google.com/webstore/detail/copy-for-scrapbox/kalhokahkhkmbkiliieonfdmdeajlnog) and Click `Add to Chrome` button.
-
 ## DEMO
 
 Please take a look at [this demo](https://www.youtube.com/watch?v=prKgvy8d9-c).
+
+## Install
+
+Visit [Chrome Web Store](https://chrome.google.com/webstore/detail/copy-for-scrapbox/kalhokahkhkmbkiliieonfdmdeajlnog) and Click `Add to Chrome` button.
 
 ## License
 
