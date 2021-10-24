@@ -1,5 +1,8 @@
-on: [push]
-# TODO: this trigger MUST be replaced with the following one:
+on:
+  push:
+    branches: [main]
+
+# TODO: the following trigger MUST be added
 # on:
 #   push:
 #     tags: 'v*'
@@ -10,15 +13,27 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Extract version from manifest.json
+        id: manifest_version
+        uses: sergeysova/jq-action@v2
+        with:
+          cmd: jq -r .version manifest.json
+
+      - name: Define package name
+        id: package_name
+        run: echo '::set-output name=value::copy-for-scrapbox-${{steps.manifest_version.output.value}}'
+
       - name: Packaging
         run: |
           mkdir packages
-          zip -r packages/copy-for-scrapbox.zip ./ \
+          zip -r packages/${{steps.package_name.outputs.value}}.zip ./ \
             -x '*.git*' \
             -x '*.md' \
             -x 'LICENSE' \
             -x '*packages/*'
+
       - uses: actions/upload-artifact@v2
         with:
-          name: copy-for-scrapbox.zip
-          path: packages/copy-for-scrapbox.zip
+          name: ${{steps.package_name.outputs.value}}.zip
+          path: packages/${{steps.package_name.outputs.value}}.zip
