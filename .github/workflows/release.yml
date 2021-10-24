@@ -1,0 +1,12 @@
+on: [push]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@2
+      - name: Packaging
+        run: |
+          mkdir packages
+          zip -r packages/copy-for-scrapbox.zip ./ -x '*.git*'
