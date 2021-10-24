@@ -1,0 +1,43 @@
+on:
+  push:
+    branches:
+      - main
+    tags: 'v*.*.*'
+
+jobs:
+  build:
+    name: Build a package
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Extract version from manifest.json
+        id: manifest_version
+        uses: sergeysova/jq-action@v2
+        with:
+          cmd: jq -r .version manifest.json
+
+      - name: Define package name
+        id: package_name
+        run: echo '::set-output name=value::copy-for-scrapbox-${{steps.manifest_version.outputs.value}}'
+
+      - name: Packaging
+        run: |
+          mkdir packages
+          zip -r packages/${{steps.package_name.outputs.value}}.zip ./ \
+            -x '*.git*' \
+            -x '*.md' \
+            -x 'LICENSE' \
+            -x '*packages/*'
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{steps.package_name.outputs.value}}.zip
+          path: packages/${{steps.package_name.outputs.value}}.zip
+
+      - uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/') # Run only when tagged like v1.0.1
+        with:
+          files: packages/${{steps.package_name.outputs.value}}.zip
