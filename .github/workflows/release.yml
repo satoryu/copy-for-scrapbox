@@ -1,4 +1,8 @@
 on: [push]
+# TODO: this trigger MUST be replaced with the following one:
+# on:
+#   push:
+#     tags: 'v*'
 
 jobs:
   release:
@@ -14,3 +18,7 @@ jobs:
             -x '*.md' \
             -x 'LICENSE' \
             -x '*packages/*'
+      - uses: actions/upload-artifact@v2
+        with:
+          name: copy-for-scrapbox.zip
+          path: packages/copy-for-scrapbox.zip
