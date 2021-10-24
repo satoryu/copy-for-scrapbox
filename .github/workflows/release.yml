@@ -20,7 +20,7 @@ jobs:
 
       - name: Define package name
         id: package_name
-        run: echo '::set-output name=value::copy-for-scrapbox-${{steps.manifest_version.output.value}}'
+        run: echo '::set-output name=value::copy-for-scrapbox-${{steps.manifest_version.outputs.value}}'
 
       - name: Packaging
         run: |
