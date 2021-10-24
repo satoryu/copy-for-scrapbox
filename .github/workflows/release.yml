@@ -9,4 +9,8 @@ jobs:
       - name: Packaging
         run: |
           mkdir packages
-          zip -r packages/copy-for-scrapbox.zip ./ -x '*.git*'
+          zip -r packages/copy-for-scrapbox.zip ./ \
+            -x '*.git*' \
+            -x '*.md' \
+            -x 'LICENSE' \
+            -x '*packages/*'
