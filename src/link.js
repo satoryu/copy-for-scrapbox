@@ -1,9 +1,11 @@
-function createLinksForTabs(tabs) {
-  return tabs.map(tab => {
-    let title = tab.title.replaceAll(/[\[\]]/g, '').replaceAll(/`(.*)`/g, '$1')
+function createLinkForTab(tab) {
+  const title = tab.title.replaceAll(/[\[\]]/g, '').replaceAll(/`(.*)`/g, '$1')
 
-    return ` [${tab.url} ${title}]`
-  }).join("\n")
+  return ` [${tab.url} ${title}]`
 }
 
-export { createLinksForTabs }
+function createLinksForTabs(tabs) {
+  return tabs.map(createLinkForTab).join("\n")
+}
+
+export { createLinksForTabs, createLinkForTab }
