@@ -1,4 +1,5 @@
 import { writeTextToClipboard } from './src/clipboard.js'
+import { createLinkForTab } from './src/link.js'
 
 chrome.runtime.onInstalled.addListener(function () {
   chrome.contextMenus.create({
@@ -8,7 +9,7 @@ chrome.runtime.onInstalled.addListener(function () {
 })
 
 chrome.contextMenus.onClicked.addListener(function (_, tab) {
-  const text = `[${tab.title} ${tab.url}]`
+  const text = createLinkForTab(tab)
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
