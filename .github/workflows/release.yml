@@ -35,7 +35,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{steps.package_name.outputs.value}}.zip
+          name: ${{steps.package_name.outputs.package_name}}.zip
           path: packages/${{steps.package_name.outputs.package_name}}.zip
 
       - uses: softprops/action-gh-release@v1
