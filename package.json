@@ -4,7 +4,8 @@
   "version": "1.2.0",
   "main": "background.js",
   "devDependencies": {
-    "jest": "^29.3.1"
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1"
   },
   "scripts": {
     "test": "jest"
