@@ -33,9 +33,8 @@ describe("appendMessage", () => {
     const button = screen.getByRole('button', { name: 'Copy Current Tab' })
     await user.click(button);
 
-    await waitFor(() => {
-      const message = document.getElementById('message-box').firstChild.innerText
-      expect(message).toEqual('Copied')
-    })
+    // const message = await screen.findByText('Copied')
+    const message = await screen.getByText('Copied')
+    expect(message).toBeTruthy()
   });
 });
