@@ -5,12 +5,16 @@ on:
 
 jobs:
   test:
-    - uses: actions/checkout@3
+    name: testing
+    runs-on: ubuntu-latest
 
-    - uses: actions/setup-node
-      with:
-        node-version: 18
-        cache: 'npm'
+    steps:
+      - uses: actions/checkout@3
 
-    - run: npm install
-    - run: npm test
+      - uses: actions/setup-node
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - run: npm install
+      - run: npm test
