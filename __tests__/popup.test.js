@@ -70,7 +70,7 @@ describe("appendMessage", () => {
       expect(message).toBeTruthy()
     })
 
-    test('', async () => {
+    test('writes a list of the links to the clipboard', async () => {
       const clipboardText = await window.navigator.clipboard.readText()
       const expectedText = " [https://www.example.com hoge]\n [https://fuga.example.com fuga]"
 
