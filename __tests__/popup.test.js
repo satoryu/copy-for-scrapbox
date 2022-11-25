@@ -13,14 +13,9 @@ describe("appendMessage", () => {
     require("./../popup.js");
   })
 
-  test("insert p tag to show a given message", async () => {
-    jest.mock("../src/clipboard", () => {
-      return {
-        writeTextToClipboard: jest.fn(() => {
-          return Promise.resolve("hoge");
-        }),
-      };
-    });
+  describe('When click copy current tab button', () => {
+    let user
+
     jest.mock("../src/chrome.js", () => {
       return {
         findTabs: jest.fn(() => {
@@ -31,24 +26,28 @@ describe("appendMessage", () => {
       };
     });
 
+    beforeEach(async () => {
+      user = userEvent.setup()
+      const button = screen.getByRole('button', { name: 'Copy Current Tab' })
+      await user.click(button);
+    })
 
-    const user = userEvent.setup()
-    const button = screen.getByRole('button', { name: 'Copy Current Tab' })
-    await user.click(button);
+    test("insert p tag to show a given message", async () => {
+      const message = await screen.getByText('Copied')
 
-    // const message = await screen.findByText('Copied')
-    const message = await screen.getByText('Copied')
-    expect(message).toBeTruthy()
-  });
+      expect(message).toBeTruthy()
+    });
+
+    test('writes the link to the clipboard', async () => {
+      const clipboardText = await window.navigator.clipboard.readText()
+
+      expect(clipboardText).toEqual(' [https://www.example.com hoge]')
+    })
+  })
 
   describe("When clicking copy selected tab button", () => {
-    jest.mock("../src/clipboard", () => {
-      return {
-        writeTextToClipboard: jest.fn(() => {
-          return Promise.resolve("hoge");
-        }),
-      };
-    });
+    let user
+
     jest.mock("../src/chrome.js", () => {
       return {
         findTabs: jest.fn(() => {
@@ -60,14 +59,22 @@ describe("appendMessage", () => {
       };
     });
 
-    test("show the message", async () => {
-      const user = userEvent.setup()
+    beforeEach(async () => {
+      user = userEvent.setup()
       const button = screen.getByRole('button', { name: 'Copy Selected Tabs' })
       await user.click(button)
+    })
 
+    test("show the message", async () => {
       const message = await screen.getByText('Copied Selected Tabs!')
       expect(message).toBeTruthy()
     })
 
+    test('', async () => {
+      const clipboardText = await window.navigator.clipboard.readText()
+      const expectedText = " [https://www.example.com hoge]\n [https://fuga.example.com fuga]"
+
+      expect(clipboardText).toEqual(expectedText)
+    })
   })
 });
