@@ -1,7 +1,7 @@
 function createLinkForTab(tab) {
   const title = tab.title.replaceAll(/[\[\]]/g, '').replaceAll(/`(.*)`/g, '$1')
 
-  return ` [${tab.url} ${title}]`
+  return `[${tab.url} ${title}]`
 }
 
 function createLinksForTabs(tabs) {

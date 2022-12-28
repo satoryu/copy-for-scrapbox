@@ -41,7 +41,7 @@ describe("appendMessage", () => {
     test('writes the link to the clipboard', async () => {
       const clipboardText = await window.navigator.clipboard.readText()
 
-      expect(clipboardText).toEqual(' [https://www.example.com hoge]')
+      expect(clipboardText).toEqual('[https://www.example.com hoge]')
     })
   })
 
