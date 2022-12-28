@@ -5,7 +5,7 @@ function createLinkForTab(tab) {
 }
 
 function createLinksForTabs(tabs) {
-  return tabs.map(createLinkForTab).join("\n")
+  return tabs.map(createLinkForTab).map((link) => (` ${link}`)).join("\n")
 }
 
 export { createLinksForTabs, createLinkForTab }

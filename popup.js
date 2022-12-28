@@ -1,6 +1,6 @@
 import { writeTextToClipboard } from './src/clipboard.js';
 import { findTabs } from './src/chrome.js';
-import { createLinksForTabs } from './src/link.js';
+import { createLinkForTab, createLinksForTabs } from './src/link.js';
 
 let messageBox = document.getElementById('message-box');
 let copyCurrentTabButton = document.getElementById('copy-current-tab-button');
@@ -15,7 +15,7 @@ function appendMessage(messageText) {
 copyCurrentTabButton.addEventListener('click', () => {
   findTabs({ active: true, currentWindow: true })
     .then(([tab]) => {
-      let linkText = createLinksForTabs([tab])
+      let linkText = createLinkForTab(tab)
 
       writeTextToClipboard(linkText).then(() => {
         appendMessage('Copied')
