@@ -1,0 +1,29 @@
+{
+  "name": "copy-for-scrapbox",
+  "description": "This is a Chrome extension which helps [scrapbox](https://scrapbox.io/) users to create a link. Users can generate a link to the page in the current tab in Scrapbox format and copy it to their clipboad.",
+  "version": "1.2.0",
+  "main": "background.js",
+  "devDependencies": {
+    "@babel/preset-env": "^7.20.2",
+    "@testing-library/user-event": "^14.4.3",
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satoryu/copy-for-scrapbox.git"
+  },
+  "keywords": [
+    "chrome",
+    "chrome extensions"
+  ],
+  "author": "Tatsuya Sato",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/satoryu/copy-for-scrapbox/issues"
+  },
+  "homepage": "https://github.com/satoryu/copy-for-scrapbox#readme"
+}

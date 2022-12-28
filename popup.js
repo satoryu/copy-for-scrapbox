@@ -8,7 +8,7 @@ let copySelectedTabsButton = document.getElementById('copy-selected-tabs-button'
 
 function appendMessage(messageText) {
   let messageElement = document.createElement('p')
-  messageElement.innerText = messageText
+  messageElement.textContent = messageText
   messageBox.appendChild(messageElement)
 }
 
