@@ -1,4 +1,4 @@
-import { setProjectName } from "../src/option.js";
+import { setProjectName, getProjectName } from "../src/option.js";
 
 global.chrome = {
   storage: {
@@ -32,3 +32,15 @@ describe("setProjectName", () => {
     })
   })
 });
+
+describe("getProjectName", () => {
+  test("fetches project name from chrome.sync.get", async () => {
+    const expected = 'satoryu0729'
+    chrome.storage.sync.get = jest.fn((key) => expected)
+
+    const actualProjectName = await getProjectName()
+
+    expect(actualProjectName).toEqual(expected)
+    expect(chrome.storage.sync.get.mock.calls[0][0]).toEqual('projectName')
+  })
+})

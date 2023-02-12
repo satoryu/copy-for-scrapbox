@@ -6,4 +6,8 @@ async function setProjectName(projectName) {
   chrome.storage.sync.set({projectName})
 }
 
-export { setProjectName }
+async function getProjectName() {
+  return chrome.storage.sync.get('projectName')
+}
+
+export { setProjectName, getProjectName }
