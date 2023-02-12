@@ -7,7 +7,7 @@ async function setProjectName(projectName) {
 }
 
 async function getProjectName() {
-  const options = chrome.storage.sync.get('projectName')
+  const options = await chrome.storage.sync.get('projectName')
 
   return options.projectName
 }

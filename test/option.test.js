@@ -36,7 +36,7 @@ describe("setProjectName", () => {
 describe("getProjectName", () => {
   test("fetches project name from chrome.sync.get", async () => {
     const expected = 'satoryu0729'
-    chrome.storage.sync.get = jest.fn((_key) => { return { projectName: expected } })
+    chrome.storage.sync.get = jest.fn(async (_key) => { return { projectName: expected } })
 
     const actualProjectName = await getProjectName()
 
