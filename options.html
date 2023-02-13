@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Copy for Scrapbox</title>
-  </head>
 
-  <body>
-    <label for="projectName">
-      Your Scrapbox Project Name
+<head>
+  <title>Options - Copy for Scrapbox</title>
 
-      <input type="text" id="projectName" />
-    </label>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="./css/bootstrap.rtl.min.css" rel="stylesheet" />
+</head>
 
-    <button id="save">Save</button>
+<body>
+  <div class="container">
+    <h1>Options</h1>
+    <form>
+      <label for="projectName" claass="form-label">
+        Enter Your Scrapbox Project Name
+      </label>
+
+      <input type="text" id="projectName" required="required" class="form-control"/>
+      <div class="form-text">
+        This is used for generating URL to create new Scrapbox page.
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="save">Save</button>
+    </form>
 
     <script src="options.js" type="module"></script>
-  </body>
+  </div>
+</body>
+
 </html>
