@@ -5,6 +5,7 @@ import { createLinkForTab, createLinksForTabs } from './src/link.js';
 let messageBox = document.getElementById('message-box');
 let copyCurrentTabButton = document.getElementById('copy-current-tab-button');
 let copySelectedTabsButton = document.getElementById('copy-selected-tabs-button');
+let copyAllTabsButton = document.getElementById('copy-all-tabs-button')
 
 function appendMessage(messageText) {
   let messageElement = document.createElement('p')
@@ -34,4 +35,15 @@ copySelectedTabsButton.addEventListener('click', () => {
       })
     })
     .catch((err) => console.error(err))
+})
+
+copyAllTabsButton.addEventListener('click', () => {
+  findTabs({currentWindow: true})
+    .then(tabs => {
+      let linkText = createLinksForTabs(tabs)
+
+      writeTextToClipboard(linkText).then(() => {
+        appendMessage('Copied All Tabs!')
+      })
+    })
 })
