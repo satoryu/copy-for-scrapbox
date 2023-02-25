@@ -8,6 +8,7 @@ describe("appendMessage", () => {
 
       <button id="copy-current-tab-button">Copy Current Tab</button>
       <button id="copy-selected-tabs-button">Copy Selected Tabs</button>
+      <button id="copy-all-tabs-button">Copy All Tabs</button>
     `;
 
     require("./../popup.js");
