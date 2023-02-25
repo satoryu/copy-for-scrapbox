@@ -2,6 +2,8 @@ import { screen, waitFor } from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
 
 describe("appendMessage", () => {
+  let mockChrome = {}
+
   beforeAll(() => {
     document.body.innerHTML = `
       <div id="message-box"></div>
@@ -11,23 +13,21 @@ describe("appendMessage", () => {
       <button id="copy-all-tabs-button">Copy All Tabs</button>
     `;
 
+    jest.mock("../src/chrome.js", () => mockChrome)
+
     require("./../popup.js");
   })
 
   describe('When click copy current tab button', () => {
     let user
 
-    jest.mock("../src/chrome.js", () => {
-      return {
-        findTabs: jest.fn(() => {
-          return Promise.resolve([
-            { title: "hoge", url: "https://www.example.com" },
-          ]);
-        }),
-      };
-    });
-
     beforeEach(async () => {
+      mockChrome.findTabs = jest.fn(() => {
+        return Promise.resolve([
+          { title: "hoge", url: "https://www.example.com" },
+        ]);
+      }),
+
       user = userEvent.setup()
       const button = screen.getByRole('button', { name: 'Copy Current Tab' })
       await user.click(button);
@@ -49,18 +49,13 @@ describe("appendMessage", () => {
   describe("When clicking copy selected tab button", () => {
     let user
 
-    jest.mock("../src/chrome.js", () => {
-      return {
-        findTabs: jest.fn(() => {
+    beforeEach(async () => {
+      mockChrome.findTabs = jest.fn(() => {
           return Promise.resolve([
             { title: "hoge", url: "https://www.example.com" },
             { title: "fuga", url: "https://fuga.example.com" },
           ]);
-        }),
-      };
-    });
-
-    beforeEach(async () => {
+        })
       user = userEvent.setup()
       const button = screen.getByRole('button', { name: 'Copy Selected Tabs' })
       await user.click(button)
