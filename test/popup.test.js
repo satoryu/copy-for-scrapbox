@@ -73,4 +73,32 @@ describe("appendMessage", () => {
       expect(clipboardText).toEqual(expectedText)
     })
   })
+
+  describe("When clicking copy all tabs button", () => {
+    let user
+
+    beforeEach(async () => {
+      mockChrome.findTabs = jest.fn(() => {
+          return Promise.resolve([
+            { title: "foo", url: "https://www.foo.com" },
+            { title: "bar", url: "https://www.bar.com" },
+          ]);
+        })
+      user = userEvent.setup()
+      const button = screen.getByRole('button', { name: 'Copy All Tabs' })
+      await user.click(button)
+    })
+
+    test("show message", async () => {
+      const message = await screen.getByText('Copied All Tabs!')
+      expect(message).toBeTruthy()
+    })
+
+    test("writes a list of the links to the clipboard", async () => {
+      const clipboardText = await window.navigator.clipboard.readText()
+      const expectedText = " [https://www.foo.com foo]\n [https://www.bar.com bar]"
+
+      expect(clipboardText).toEqual(expectedText)
+    })
+  })
 });
