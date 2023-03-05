@@ -42,3 +42,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/') # Run only when tagged like v1.0.1
         with:
           files: packages/${{steps.package_name.outputs.package_name}}.zip
+          generate_release_notes: true
