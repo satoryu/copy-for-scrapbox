@@ -1,5 +1,5 @@
 import { writeTextToClipboard } from './src/clipboard.js';
-import { findTabs, getCurrentTab, getSelectedTabs, getAllTabsOnCurrentWindow } from './src/chrome.js';
+import { getCurrentTab, getSelectedTabs, getAllTabsOnCurrentWindow } from './src/chrome.js';
 import { createLinkForTab, createLinksForTabs } from './src/link.js';
 
 let messageBox = document.getElementById('message-box');
