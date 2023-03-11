@@ -22,7 +22,7 @@ describe("appendMessage", () => {
     let user
 
     beforeEach(async () => {
-      mockChrome.findTabs = jest.fn(() => {
+      mockChrome.getCurrentTab = jest.fn(() => {
         return Promise.resolve([
           { title: "hoge", url: "https://www.example.com" },
         ]);
@@ -50,7 +50,7 @@ describe("appendMessage", () => {
     let user
 
     beforeEach(async () => {
-      mockChrome.findTabs = jest.fn(() => {
+      mockChrome.getSelectedTabs = jest.fn(() => {
           return Promise.resolve([
             { title: "hoge", url: "https://www.example.com" },
             { title: "fuga", url: "https://fuga.example.com" },
@@ -78,7 +78,7 @@ describe("appendMessage", () => {
     let user
 
     beforeEach(async () => {
-      mockChrome.findTabs = jest.fn(() => {
+      mockChrome.getAllTabsOnCurrentWindow = jest.fn(() => {
           return Promise.resolve([
             { title: "foo", url: "https://www.foo.com" },
             { title: "bar", url: "https://www.bar.com" },

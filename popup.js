@@ -1,5 +1,5 @@
 import { writeTextToClipboard } from './src/clipboard.js';
-import { findTabs } from './src/chrome.js';
+import { findTabs, getCurrentTab, getSelectedTabs, getAllTabsOnCurrentWindow } from './src/chrome.js';
 import { createLinkForTab, createLinksForTabs } from './src/link.js';
 
 let messageBox = document.getElementById('message-box');
@@ -14,7 +14,7 @@ function appendMessage(messageText) {
 }
 
 copyCurrentTabButton.addEventListener('click', () => {
-  findTabs({ active: true, currentWindow: true })
+  getCurrentTab()
     .then(([tab]) => {
       let linkText = createLinkForTab(tab)
 
@@ -26,7 +26,7 @@ copyCurrentTabButton.addEventListener('click', () => {
 });
 
 copySelectedTabsButton.addEventListener('click', () => {
-  findTabs({ highlighted: true, currentWindow: true })
+  getSelectedTabs()
     .then(tabs => {
       let linkText = createLinksForTabs(tabs)
 
@@ -38,7 +38,7 @@ copySelectedTabsButton.addEventListener('click', () => {
 })
 
 copyAllTabsButton.addEventListener('click', () => {
-  findTabs({currentWindow: true})
+  getAllTabsOnCurrentWindow()
     .then(tabs => {
       let linkText = createLinksForTabs(tabs)
 
