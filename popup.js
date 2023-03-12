@@ -36,6 +36,12 @@ copySelectedTabsButton.addEventListener('click', () => {
     })
     .catch((err) => console.error(err))
 })
+const countOfSelectedTabs = document.getElementById('count-of-selected-tabs')
+if (countOfSelectedTabs) {
+  getSelectedTabs().then(tabs => {
+    countOfSelectedTabs.textContent = tabs.length
+  })
+}
 
 copyAllTabsButton.addEventListener('click', () => {
   getAllTabsOnCurrentWindow()

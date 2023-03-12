@@ -9,11 +9,12 @@ describe("appendMessage", () => {
       <div id="message-box"></div>
 
       <button id="copy-current-tab-button">Copy Current Tab</button>
-      <button id="copy-selected-tabs-button">Copy Selected Tabs</button>
+      <button id="copy-selected-tabs-button">Copy Selected Tabs (<span id="count-of-selected-tabs">0</span>)</button>
       <button id="copy-all-tabs-button">Copy All Tabs</button>
     `;
 
     jest.mock("../src/chrome.js", () => mockChrome)
+    mockChrome.getSelectedTabs = jest.fn(() => (Promise.resolve([])))
 
     require("./../popup.js");
   })
@@ -26,7 +27,7 @@ describe("appendMessage", () => {
         return Promise.resolve([
           { title: "hoge", url: "https://www.example.com" },
         ]);
-      }),
+      })
 
       user = userEvent.setup()
       const button = screen.getByRole('button', { name: 'Copy Current Tab' })
@@ -57,7 +58,7 @@ describe("appendMessage", () => {
           ]);
         })
       user = userEvent.setup()
-      const button = screen.getByRole('button', { name: 'Copy Selected Tabs' })
+      const button = screen.getByRole('button', { name: 'Copy Selected Tabs ( 0 )' })
       await user.click(button)
     })
 
