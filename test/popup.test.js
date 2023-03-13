@@ -9,11 +9,12 @@ describe("appendMessage", () => {
       <div id="message-box"></div>
 
       <button id="copy-current-tab-button">Copy Current Tab</button>
-      <button id="copy-selected-tabs-button">Copy Selected Tabs</button>
+      <button id="copy-selected-tabs-button">Copy Selected Tabs (<span id="count-of-selected-tabs">0</span>)</button>
       <button id="copy-all-tabs-button">Copy All Tabs</button>
     `;
 
     jest.mock("../src/chrome.js", () => mockChrome)
+    mockChrome.getSelectedTabs = jest.fn(() => (Promise.resolve([])))
 
     require("./../popup.js");
   })
@@ -22,11 +23,11 @@ describe("appendMessage", () => {
     let user
 
     beforeEach(async () => {
-      mockChrome.findTabs = jest.fn(() => {
+      mockChrome.getCurrentTab = jest.fn(() => {
         return Promise.resolve([
           { title: "hoge", url: "https://www.example.com" },
         ]);
-      }),
+      })
 
       user = userEvent.setup()
       const button = screen.getByRole('button', { name: 'Copy Current Tab' })
@@ -50,14 +51,14 @@ describe("appendMessage", () => {
     let user
 
     beforeEach(async () => {
-      mockChrome.findTabs = jest.fn(() => {
+      mockChrome.getSelectedTabs = jest.fn(() => {
           return Promise.resolve([
             { title: "hoge", url: "https://www.example.com" },
             { title: "fuga", url: "https://fuga.example.com" },
           ]);
         })
       user = userEvent.setup()
-      const button = screen.getByRole('button', { name: 'Copy Selected Tabs' })
+      const button = screen.getByRole('button', { name: 'Copy Selected Tabs ( 0 )' })
       await user.click(button)
     })
 
@@ -78,7 +79,7 @@ describe("appendMessage", () => {
     let user
 
     beforeEach(async () => {
-      mockChrome.findTabs = jest.fn(() => {
+      mockChrome.getAllTabsOnCurrentWindow = jest.fn(() => {
           return Promise.resolve([
             { title: "foo", url: "https://www.foo.com" },
             { title: "bar", url: "https://www.bar.com" },

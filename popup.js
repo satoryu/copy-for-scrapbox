@@ -1,5 +1,5 @@
 import { writeTextToClipboard } from './src/clipboard.js';
-import { findTabs } from './src/chrome.js';
+import { getCurrentTab, getSelectedTabs, getAllTabsOnCurrentWindow } from './src/chrome.js';
 import { createLinkForTab, createLinksForTabs } from './src/link.js';
 
 let messageBox = document.getElementById('message-box');
@@ -14,36 +14,30 @@ function appendMessage(messageText) {
 }
 
 copyCurrentTabButton.addEventListener('click', () => {
-  findTabs({ active: true, currentWindow: true })
-    .then(([tab]) => {
-      let linkText = createLinkForTab(tab)
-
-      writeTextToClipboard(linkText).then(() => {
-        appendMessage('Copied')
-      })
-    })
+  getCurrentTab()
+    .then(([tab]) => (createLinkForTab(tab)))
+    .then(writeTextToClipboard)
+    .then(() => { appendMessage('Copied') })
     .catch((err) => console.error(err))
 });
 
 copySelectedTabsButton.addEventListener('click', () => {
-  findTabs({ highlighted: true, currentWindow: true })
-    .then(tabs => {
-      let linkText = createLinksForTabs(tabs)
-
-      writeTextToClipboard(linkText).then(() => {
-        appendMessage('Copied Selected Tabs!')
-      })
-    })
+  getSelectedTabs()
+    .then(createLinksForTabs)
+    .then(writeTextToClipboard)
+    .then(() => { appendMessage('Copied Selected Tabs!') })
     .catch((err) => console.error(err))
 })
+const countOfSelectedTabs = document.getElementById('count-of-selected-tabs')
+if (countOfSelectedTabs) {
+  getSelectedTabs().then(tabs => {
+    countOfSelectedTabs.textContent = tabs.length
+  })
+}
 
 copyAllTabsButton.addEventListener('click', () => {
-  findTabs({currentWindow: true})
-    .then(tabs => {
-      let linkText = createLinksForTabs(tabs)
-
-      writeTextToClipboard(linkText).then(() => {
-        appendMessage('Copied All Tabs!')
-      })
-    })
+  getAllTabsOnCurrentWindow()
+    .then(createLinksForTabs)
+    .then(writeTextToClipboard)
+    .then(() => { appendMessage('Copied All Tabs!') })
 })
