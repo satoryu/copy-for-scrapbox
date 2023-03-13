@@ -15,25 +15,17 @@ function appendMessage(messageText) {
 
 copyCurrentTabButton.addEventListener('click', () => {
   getCurrentTab()
-    .then(([tab]) => {
-      let linkText = createLinkForTab(tab)
-
-      writeTextToClipboard(linkText).then(() => {
-        appendMessage('Copied')
-      })
-    })
+    .then(([tab]) => (createLinkForTab(tab)))
+    .then(writeTextToClipboard)
+    .then(() => { appendMessage('Copied') })
     .catch((err) => console.error(err))
 });
 
 copySelectedTabsButton.addEventListener('click', () => {
   getSelectedTabs()
-    .then(tabs => {
-      let linkText = createLinksForTabs(tabs)
-
-      writeTextToClipboard(linkText).then(() => {
-        appendMessage('Copied Selected Tabs!')
-      })
-    })
+    .then(createLinksForTabs)
+    .then(writeTextToClipboard)
+    .then(() => { appendMessage('Copied Selected Tabs!') })
     .catch((err) => console.error(err))
 })
 const countOfSelectedTabs = document.getElementById('count-of-selected-tabs')
@@ -45,11 +37,7 @@ if (countOfSelectedTabs) {
 
 copyAllTabsButton.addEventListener('click', () => {
   getAllTabsOnCurrentWindow()
-    .then(tabs => {
-      let linkText = createLinksForTabs(tabs)
-
-      writeTextToClipboard(linkText).then(() => {
-        appendMessage('Copied All Tabs!')
-      })
-    })
+    .then(createLinksForTabs)
+    .then(writeTextToClipboard)
+    .then(() => { appendMessage('Copied All Tabs!') })
 })
