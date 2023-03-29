@@ -9,11 +9,11 @@ chrome.runtime.onInstalled.addListener(function () {
 })
 
 chrome.contextMenus.onClicked.addListener(function (_, tab) {
-  const text = createLinkForTab(tab)
-
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: writeTextToClipboard,
-    args: [text]
+  createLinkForTab(tab).then((text) => {
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: writeTextToClipboard,
+      args: [text]
+    })
   })
 })
