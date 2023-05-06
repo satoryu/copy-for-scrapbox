@@ -9,6 +9,7 @@ author:
 lsi: false
 safe: true
 source: ./
+baseurl: /copy-for-scrapbox
 incremental: false
 highlighter: rouge
 
