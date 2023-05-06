@@ -9,7 +9,7 @@
 
 ## Screenshots
 
-![Popup](/screenshot_popup.png)
+![Popup](./screenshot_popup.png)
 
 The popup provides three buttons to copy links of:
 
@@ -17,7 +17,7 @@ The popup provides three buttons to copy links of:
 - `Copy Selected Tabs`: the selected tabs in the current window
 - `Copy All Tabs`: all the tabs in the current window
 
-![Context Menu](/screenshot_contextmenu.png)
+![Context Menu](./screenshot_contextmenu.png)
 
 As shown in this screenshot, one context menu is provided for copying a link to the current tab.
 
