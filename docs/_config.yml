@@ -13,8 +13,6 @@ baseurl: /copy-for-scrapbox
 incremental: false
 highlighter: rouge
 
-google_analytics: G-DM9EN1G7ZE
-
 kramdown:
   math_engine: mathjax
   syntax_highlighter: rouge

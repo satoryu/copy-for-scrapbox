@@ -1,3 +1,6 @@
+---
+layout: home
+---
 
 [Scrapbox](https://scrapbox.io) is a simple knowledge base tool.
 [Copy for Scrapbox](https://chrome.google.com/webstore/detail/copy-for-scrapbox/kalhokahkhkmbkiliieonfdmdeajlnog) is a Chrome extension which helps you copy urls of the tabs you want to note and copy
