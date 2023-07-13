@@ -16,7 +16,7 @@ describe("appendMessage", () => {
     jest.mock("../src/chrome.js", () => mockChrome)
     mockChrome.getSelectedTabs = jest.fn(() => (Promise.resolve([])))
 
-    require("./../popup.js");
+    require("../src/popup.js");
   })
 
   describe('When click copy current tab button', () => {

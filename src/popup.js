@@ -1,6 +1,6 @@
-import { writeTextToClipboard } from './src/clipboard.js';
-import { getCurrentTab, getSelectedTabs, getAllTabsOnCurrentWindow } from './src/chrome.js';
-import { createLinkForTab, createLinksForTabs } from './src/link.js';
+import { writeTextToClipboard } from './clipboard.js';
+import { getCurrentTab, getSelectedTabs, getAllTabsOnCurrentWindow } from './chrome.js';
+import { createLinkForTab, createLinksForTabs } from './link.js';
 
 let messageBox = document.getElementById('message-box');
 let copyCurrentTabButton = document.getElementById('copy-current-tab-button');
