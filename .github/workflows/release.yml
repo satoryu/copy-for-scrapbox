@@ -24,6 +24,9 @@ jobs:
         id: package_name
         run: echo 'package_name=copy-for-scrapbox-${{steps.manifest_version.outputs.value}}' >> $GITHUB_OUTPUT
 
+      - name: Build
+        run: npm run build
+
       - name: Packaging
         run: |
           mkdir packages

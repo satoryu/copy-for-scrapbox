@@ -1,5 +1,5 @@
-import { writeTextToClipboard } from './src/clipboard.js'
-import { createLinkForTab } from './src/link.js'
+import { writeTextToClipboard } from './clipboard.js'
+import { createLinkForTab } from './link.js'
 
 chrome.runtime.onInstalled.addListener(function () {
   chrome.contextMenus.create({
