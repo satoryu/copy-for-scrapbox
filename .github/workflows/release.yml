@@ -31,7 +31,8 @@ jobs:
       - name: Packaging
         run: |
           mkdir packages
-          zip -r packages/${{steps.package_name.outputs.package_name}}.zip ./ \
+          cd dist
+          zip -r ../packages/${{steps.package_name.outputs.package_name}}.zip ./ \
             -x '*.git*' \
             -x '*.md' \
             -x 'LICENSE' \
