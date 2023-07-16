@@ -1,11 +1,7 @@
 import { getClientId } from "../src/id.js";
 import { v4 as uuid } from 'uuid'
 
-jest.mock('uuid', () => {
-  return {
-    v4: jest.fn()
-  }
-})
+jest.mock('uuid', () => ({ v4: jest.fn() }))
 
 global.chrome = {
   storage: {
