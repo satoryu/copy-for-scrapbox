@@ -1,7 +1,9 @@
 import { writeTextToClipboard } from './clipboard.js'
 import { createLinkForTab } from './link.js'
+import { getClientId } from './id.js'
 
 chrome.runtime.onInstalled.addListener(function () {
+  getClientId()
   chrome.contextMenus.create({
     id: 'copy-for-scrapbox',
     title: 'Copy [URL PageTitle]'
