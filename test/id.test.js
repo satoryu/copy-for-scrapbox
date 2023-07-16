@@ -1,4 +1,11 @@
 import { getClientId } from "../src/id.js";
+import { v4 as uuid } from 'uuid'
+
+jest.mock('uuid', () => {
+  return {
+    v4: jest.fn()
+  }
+})
 
 global.chrome = {
   storage: {
@@ -26,9 +33,11 @@ describe('getClientId', () => {
   describe('When local storage does not have clientId', () => {
     test('generates new clientId and return it', async () => {
       chrome.storage.local.get.mockReturnValue(Promise.resolve({}))
+      uuid.mockReturnValue(Promise.resolve('generated-uuid'))
+
       const clientId = await getClientId()
 
-      expect(clientId).toEqual('new-client-id')
+      expect(clientId).toEqual('generated-uuid')
       expect(chrome.storage.local.set).toHaveBeenCalled()
     })
   })
