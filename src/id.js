@@ -1,7 +1,7 @@
-import { v4 as uuid } from 'uuid'
+import { v4 as uuid } from "uuid";
 
 async function generateClientId() {
-  return uuid()
+  return uuid();
 }
 
 async function getClientId() {
@@ -12,10 +12,11 @@ async function getClientId() {
     return clientId;
   }
 
-  const newClientId = await generateClientId()
-  return chrome.storage.local
-    .set({ clientId: newClientId })
-    .then(() => newClientId);
+  return generateClientId().then((newClientId) => (
+    chrome.storage.local
+      .set({ clientId: newClientId })
+      .then(() => newClientId)
+   ));
 }
 
 export { getClientId, generateClientId };
