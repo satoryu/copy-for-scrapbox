@@ -12,12 +12,19 @@ chrome.runtime.onInstalled.addListener(function () {
   })
 })
 
-chrome.contextMenus.onClicked.addListener(function (_, tab) {
+chrome.contextMenus.onClicked.addListener(function (info, tab) {
   createLinkForTab(tab).then((text) => {
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: writeTextToClipboard,
       args: [text]
+    })
+  }).then(() => {
+    sendTrackEvent({
+      name: 'context_menu',
+      params: {
+        id: info.menuItemId
+      }
     })
   })
 })
