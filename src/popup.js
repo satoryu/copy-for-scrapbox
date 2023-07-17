@@ -46,3 +46,13 @@ copyAllTabsButton.addEventListener('click', () => {
     .then(() => { appendMessage('Copied All Tabs!') })
     .then(() => (sendTrackEvent({name: 'button_click', params: { id: 'copy-all-tabs' }})))
 })
+
+window.addEventListener('load', () => {
+  sendTrackEvent({
+    name: 'page_view',
+    params: {
+      page_title: document.title,
+      page_location: document.location.href
+    }
+  })
+})
