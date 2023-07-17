@@ -6,3 +6,7 @@ node_modules/
 docs/_site/
 
 dist/
+
+.env
+.env.*
+!.env.sample
