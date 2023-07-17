@@ -1,5 +1,7 @@
 import { v4 as uuid } from "uuid";
 
+const SESSION_EXPIRATION = 30 * 60 * 1000 // msec of 30 min
+
 async function generateClientId() {
   const newClientId = uuid()
 
@@ -19,4 +21,30 @@ async function getClientId() {
   return generateClientId()
 }
 
-export { getClientId, generateClientId };
+async function getSessionId() {
+  let { sessionData } = await chrome.storage.session.get('sessionData')
+  const currentTime = Date.now()
+
+  if (sessionData && sessionData.timestamp) {
+    const duration = (currentTime - sessionData.timestamp)
+
+    if (duration > SESSION_EXPIRATION) {
+      sessionData = null
+    } else {
+      sessionData.timestamp = currentTime
+      await chrome.storage.session.set({sessionData})
+    }
+  }
+
+  if (!sessionData) {
+    sessionData = {
+      session_id: currentTime.toString(),
+      timestamp: currentTime.toString()
+    }
+    await chrome.storage.session.set({sessionData})
+  }
+
+  return sessionData.session_id
+}
+
+export { getClientId, generateClientId, getSessionId };
