@@ -2,6 +2,7 @@ import { writeTextToClipboard } from './clipboard.js';
 import { getCurrentTab, getSelectedTabs, getAllTabsOnCurrentWindow } from './chrome.js';
 import { createLinkForTab, createLinksForTabs } from './link.js';
 import './popup.scss'
+import { sendTrackEvent } from './google-analytics.js';
 
 let messageBox = document.getElementById('message-box');
 let copyCurrentTabButton = document.getElementById('copy-current-tab-button');
@@ -19,6 +20,7 @@ copyCurrentTabButton.addEventListener('click', () => {
     .then(([tab]) => (createLinkForTab(tab)))
     .then(writeTextToClipboard)
     .then(() => { appendMessage('Copied') })
+    .then(() => (sendTrackEvent({name: 'button_click', params: { id: 'copy-current-tab' }})))
     .catch((err) => console.error(err))
 });
 
@@ -27,6 +29,7 @@ copySelectedTabsButton.addEventListener('click', () => {
     .then(createLinksForTabs)
     .then(writeTextToClipboard)
     .then(() => { appendMessage('Copied Selected Tabs!') })
+    .then(() => (sendTrackEvent({name: 'button_click', params: { id: 'copy-selected-tabs' }})))
     .catch((err) => console.error(err))
 })
 const countOfSelectedTabs = document.getElementById('count-of-selected-tabs')
@@ -41,4 +44,5 @@ copyAllTabsButton.addEventListener('click', () => {
     .then(createLinksForTabs)
     .then(writeTextToClipboard)
     .then(() => { appendMessage('Copied All Tabs!') })
+    .then(() => (sendTrackEvent({name: 'button_click', params: { id: 'copy-all-tabs' }})))
 })
