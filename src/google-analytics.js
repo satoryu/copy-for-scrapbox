@@ -1,4 +1,4 @@
-import { getClientId, getSessionId } from "./id";
+import { getClientId, getSessionId, getUserId } from "./id";
 
 const GA_ENDPOINT = process.env.VITE_GA_ENDPOINT;
 const MEASUREMENT_ID = process.env.VITE_MEASUREMENT_ID;
@@ -17,6 +17,7 @@ async function sendTrackEvent(event) {
       method: 'POST',
       body: JSON.stringify({
         client_id: await getClientId(),
+        user_id: await getUserId(),
         events: [event]
       })
     }

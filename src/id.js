@@ -47,4 +47,19 @@ async function getSessionId() {
   return sessionData.session_id
 }
 
-export { getClientId, generateClientId, getSessionId };
+async function getUserId() {
+  const result = await chrome.storage.sync.get('userId')
+  const userId = result.userId
+
+  if (userId) {
+    return userId
+  }
+
+  const newUserId = uuid()
+
+  return chrome.storage.sync
+    .set({ userId: newUserId })
+    .then(() => (newUserId))
+}
+
+export { getClientId, generateClientId, getSessionId, getUserId };
