@@ -1,5 +1,8 @@
 import { screen } from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
+import { sendTrackEvent } from '../src/google-analytics.js';
+
+jest.mock('./../src/google-analytics.js')
 
 describe("appendMessage", () => {
   let mockChrome = {}
@@ -17,6 +20,10 @@ describe("appendMessage", () => {
     mockChrome.getSelectedTabs = jest.fn(() => (Promise.resolve([])))
 
     require("../src/popup.js");
+  })
+
+  beforeEach(() => {
+    sendTrackEvent.mockClear()
   })
 
   describe('When click copy current tab button', () => {
@@ -44,6 +51,11 @@ describe("appendMessage", () => {
       const clipboardText = await window.navigator.clipboard.readText()
 
       expect(clipboardText).toEqual('[https://www.example.com hoge]')
+    })
+
+    test('sends an event for clicking the button', () => {
+      expect(sendTrackEvent.mock.calls.length).toEqual(1)
+      expect(sendTrackEvent.mock.calls[0][0]).toEqual({name: 'button_click', params: {id: 'copy-current-tab'}})
     })
   })
 
@@ -73,6 +85,11 @@ describe("appendMessage", () => {
 
       expect(clipboardText).toEqual(expectedText)
     })
+
+    test('sends an event for clicking the button', () => {
+      expect(sendTrackEvent.mock.calls.length).toEqual(1)
+      expect(sendTrackEvent.mock.calls[0][0]).toEqual({name: 'button_click', params: {id: 'copy-selected-tabs'}})
+    })
   })
 
   describe("When clicking copy all tabs button", () => {
@@ -100,6 +117,11 @@ describe("appendMessage", () => {
       const expectedText = " [https://www.foo.com foo]\n [https://www.bar.com bar]"
 
       expect(clipboardText).toEqual(expectedText)
+    })
+
+    test('sends an event for clicking the button', () => {
+      expect(sendTrackEvent.mock.calls.length).toEqual(1)
+      expect(sendTrackEvent.mock.calls[0][0]).toEqual({name: 'button_click', params: {id: 'copy-all-tabs'}})
     })
   })
 });

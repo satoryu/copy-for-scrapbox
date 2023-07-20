@@ -22,7 +22,7 @@
     "32": "images/icon32.png",
     "128": "images/icon128.png"
   },
-  "permissions": ["tabs", "contextMenus", "scripting"],
+  "permissions": ["tabs", "contextMenus", "scripting", "storage"],
   "host_permissions": [
     "https://*/*"
   ],
