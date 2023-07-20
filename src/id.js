@@ -2,23 +2,21 @@ import { v4 as uuid } from "uuid";
 
 const SESSION_EXPIRATION = 30 * 60 * 1000 // msec of 30 min
 
-async function generateClientId() {
-  const newClientId = uuid()
+async function getOrGenerateId(idName, storage) {
+  const result = await storage.get(idName)
+  const id = result[idName]
 
-  return chrome.storage.local
-      .set({ clientId: newClientId })
-      .then(() => newClientId)
+  if (id) {
+    return id
+  }
+
+  const newId = uuid()
+
+  return storage.set({ [idName]: newId }).then(() => newId)
 }
 
 async function getClientId() {
-  const result = await chrome.storage.local.get("clientId");
-  const clientId = result.clientId;
-
-  if (clientId) {
-    return clientId;
-  }
-
-  return generateClientId()
+  return getOrGenerateId('clientId', chrome.storage.local)
 }
 
 async function getSessionId() {
@@ -48,18 +46,7 @@ async function getSessionId() {
 }
 
 async function getUserId() {
-  const result = await chrome.storage.sync.get('userId')
-  const userId = result.userId
-
-  if (userId) {
-    return userId
-  }
-
-  const newUserId = uuid()
-
-  return chrome.storage.sync
-    .set({ userId: newUserId })
-    .then(() => (newUserId))
+  return getOrGenerateId('userId', chrome.storage.sync)
 }
 
-export { getClientId, generateClientId, getSessionId, getUserId };
+export { getClientId, getSessionId, getUserId };
