@@ -27,6 +27,10 @@ jobs:
       - run: npm install
       - name: Build
         run: npm run build
+        env:
+          VITE_GA_ENDPOINT: ${{ secrets.VITE_GA_ENDPOINT }}
+          VITE_MEASUREMENT_ID: ${{ secrets.VITE_MEASUREMENT_ID }}
+          VITE_API_SECRET: ${{ secrets.VITE_API_SECRET }}
 
       - name: Packaging
         run: |
