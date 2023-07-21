@@ -20,7 +20,7 @@ jobs:
         id: manifest_version
         uses: sergeysova/jq-action@v2
         with:
-          cmd: jq -r .version manifest.json
+          cmd: jq -r .version package.json
 
       - name: Define package name
         id: package_name
