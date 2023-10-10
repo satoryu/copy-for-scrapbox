@@ -9,13 +9,13 @@ export default class {
     this.handlers[handlerInfo.id] = handlerInfo
   }
 
-  async getHandler(menuId) {
+  getHandler(menuId) {
     const handler = this.handlers[menuId]?.handler
 
     return handler
   }
 
   getContextMenuInfo() {
-    return Object.values(this.handlers).map(({ id, contexts }) => ({ id, contexts }))
+    return Object.values(this.handlers).map(({ id, title, contexts }) => ({ id, title, contexts }))
   }
 }
