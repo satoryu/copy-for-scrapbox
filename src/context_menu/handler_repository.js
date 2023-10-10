@@ -14,4 +14,8 @@ export default class {
 
     return handler
   }
+
+  getContextMenuInfo() {
+    return Object.values(this.handlers).map(({ id, contexts }) => ({ id, contexts }))
+  }
 }

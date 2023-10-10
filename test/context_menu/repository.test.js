@@ -28,6 +28,20 @@ describe('ContextMenuRepository', () => {
     })
   })
 
+  describe('#getContextMenuInfo', () => {
+    it('returns all context menu info', () => {
+      const repository = new ContextMenuRepository()
+      const handlerInfo = {
+        id: 'some-handler',
+        contexts: ['selection'],
+        handler: async () => { return 'fake value'}
+      }
+      repository.registerHandler(handlerInfo)
+
+      expect(repository.getContextMenuInfo()).toEqual([{id: 'some-handler', contexts: ['selection']}])
+    })
+  })
+
   describe('#getHandler', () => {
     it('returns a context menu handler for a given menuId', async () => {
       const repository = new ContextMenuRepository()
