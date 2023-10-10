@@ -28,43 +28,45 @@ describe('ContextMenuRepository', () => {
     })
   })
 
-  it('returns a context menu handler for a given menuId', async () => {
-    const repository = new ContextMenuRepository()
-    repository.registerHandler({
-      id: 'copy-for-scrapbox',
-      title: 'Copy [URL PageTitle]',
-      handler: async () => { return 'fake value'}
-    })
-
-    const handler = await repository.getHandler('copy-for-scrapbox')
-    expect(handler()).resolves.toEqual('fake value')
-  })
-
-  describe('When no handler is registered', () => {
-    it('returns undefined', async () => {
-      const repository = new ContextMenuRepository()
-      const handler = await repository.getHandler('copy-for-scrapbox')
-
-      expect(handler).toBeUndefined()
-    })
-  })
-
-  describe('When multiple handlers are registered', () => {
-    it('returns the handler for the given menuId', async () => {
+  describe('#getHandler', () => {
+    it('returns a context menu handler for a given menuId', async () => {
       const repository = new ContextMenuRepository()
       repository.registerHandler({
         id: 'copy-for-scrapbox',
         title: 'Copy [URL PageTitle]',
         handler: async () => { return 'fake value'}
       })
-      repository.registerHandler({
-        id: 'another-handeler',
-        title: 'Another Handler',
-        handler: async () => { return 'another fake value'}
-      })
 
-      const handler = await repository.getHandler('another-handeler')
-      expect(handler()).resolves.toEqual('another fake value')
+      const handler = await repository.getHandler('copy-for-scrapbox')
+      expect(handler()).resolves.toEqual('fake value')
+    })
+
+    describe('When no handler is registered', () => {
+      it('returns undefined', async () => {
+        const repository = new ContextMenuRepository()
+        const handler = await repository.getHandler('copy-for-scrapbox')
+
+        expect(handler).toBeUndefined()
+      })
+    })
+
+    describe('When multiple handlers are registered', () => {
+      it('returns the handler for the given menuId', async () => {
+        const repository = new ContextMenuRepository()
+        repository.registerHandler({
+          id: 'copy-for-scrapbox',
+          title: 'Copy [URL PageTitle]',
+          handler: async () => { return 'fake value'}
+        })
+        repository.registerHandler({
+          id: 'another-handeler',
+          title: 'Another Handler',
+          handler: async () => { return 'another fake value'}
+        })
+
+        const handler = await repository.getHandler('another-handeler')
+        expect(handler()).resolves.toEqual('another fake value')
+      })
     })
   })
 })
