@@ -14,7 +14,7 @@
     "jest-fetch-mock": "^3.0.3",
     "sass": "^1.63.6",
     "vite": "^2.9.16",
-    "vite-plugin-env-compatible": "^1.1.1"
+    "vite-plugin-env-compatible": "^2.0.1"
   },
   "scripts": {
     "dev": "vite",
