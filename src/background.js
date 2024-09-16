@@ -6,6 +6,8 @@ chrome.runtime.onInstalled.addListener(function ({ previousVersion, reason }) {
   getClientId()
     .then((_clientId) => installationHandler({ previousVersion, reason }))
 
+  chrome.runtime.setUninstallURL('https://www.satoryu.com/copy-for-scrapbox/thank-you')
+
   contextMenuRepository.getContextMenuInfo().forEach((contextMenuInfo) => {
     chrome.contextMenus.create(contextMenuInfo)
   })
