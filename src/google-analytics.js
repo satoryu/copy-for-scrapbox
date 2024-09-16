@@ -11,6 +11,8 @@ async function sendTrackEvent(event) {
     engagement_time_msec: 100
   }
 
+  console.debug('Sending event:', event);
+
   return fetch(
     `${GA_ENDPOINT}?measurement_id=${MEASUREMENT_ID}&api_secret=${API_SECRET}`,
     {

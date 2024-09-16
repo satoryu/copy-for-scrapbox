@@ -1,10 +1,12 @@
 import { getClientId } from './id.js'
-import { sendTrackEvent } from './google-analytics.js'
+import { installationHandler } from './installation-handler.js'
 import contextMenuRepository from './context_menu'
 
-chrome.runtime.onInstalled.addListener(function () {
+chrome.runtime.onInstalled.addListener(function ({ previousVersion, reason }) {
   getClientId()
-  sendTrackEvent({ name: 'installed' })
+    .then((_clientId) => installationHandler({ previousVersion, reason }))
+
+  chrome.runtime.setUninstallURL('https://www.satoryu.com/copy-for-scrapbox/thank-you')
 
   contextMenuRepository.getContextMenuInfo().forEach((contextMenuInfo) => {
     chrome.contextMenus.create(contextMenuInfo)
