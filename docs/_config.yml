@@ -22,3 +22,6 @@ theme: minima
 google_analytics: G-DM9EN1G7ZE
 
 repository: satoryu/copy-for-scrapbox
+
+plugins:
+  - jekyll-feed

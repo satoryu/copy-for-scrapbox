@@ -1,12 +1,15 @@
-import { getClientId } from './id.js'
+import { getClientId, getUserId } from './id.js'
 import { installationHandler } from './installation-handler.js'
 import contextMenuRepository from './context_menu'
 
 chrome.runtime.onInstalled.addListener(function ({ previousVersion, reason }) {
-  getClientId()
-    .then((_clientId) => installationHandler({ previousVersion, reason }))
+  installationHandler({ previousVersion, reason })
 
-  chrome.runtime.setUninstallURL('https://www.satoryu.com/copy-for-scrapbox/thank-you')
+  Promise.all([getClientId(), getUserId()])
+    .then(([clientId, userId]) => {
+      const { version } = chrome.runtime.getManifest()
+      chrome.runtime.setUninstallURL(`https://www.satoryu.com/copy-for-scrapbox/thank-you?version=${version}&clientId=${clientId}&userId=${userId}`)
+    })
 
   contextMenuRepository.getContextMenuInfo().forEach((contextMenuInfo) => {
     chrome.contextMenus.create(contextMenuInfo)
