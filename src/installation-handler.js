@@ -15,19 +15,20 @@ export async function installationHandler({ previousVersion, reason }) {
   const { version } = chrome.runtime.getManifest()
 
   if (reason === 'install') {
-    return sendTrackEvent({ name: 'installed', params: { version } })
+    await sendTrackEvent({ name: 'installed', params: { version } })
       .then(saveLastInstalledVersion)
       .then(() => console.debug(`lastInstalledVersion is set: ${version}`))
   } else if (reason === 'update') {
-    getLastInstalledVersion()
+    await getLastInstalledVersion()
     .then((lastInstalledVersion) => {
       // if already installed, just update the version
       if (lastInstalledVersion) {
         console.debug(`lastInstalledVersion is ${lastInstalledVersion}`)
-        return sendTrackEvent({ name: 'updated', params: { version, previousVersion } })
+        sendTrackEvent({ name: 'updated', params: { version, previousVersion } })
+        return
       }
 
-      return sendTrackEvent({ name: 'installed', params: { version } })
+      sendTrackEvent({ name: 'installed', params: { version } })
         .then(saveLastInstalledVersion)
     })
   }
