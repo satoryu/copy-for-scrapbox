@@ -2,9 +2,7 @@ import { getClientId, getUserId } from './id.js'
 import { installationHandler } from './installation-handler.js'
 import contextMenuRepository from './context_menu'
 
-chrome.runtime.onInstalled.addListener(function ({ previousVersion, reason }) {
-  installationHandler({ previousVersion, reason })
-
+chrome.runtime.onInstalled.addListener(function () {
   Promise.all([getClientId(), getUserId()])
     .then(([clientId, userId]) => {
       const { version } = chrome.runtime.getManifest()
@@ -15,6 +13,8 @@ chrome.runtime.onInstalled.addListener(function ({ previousVersion, reason }) {
     chrome.contextMenus.create(contextMenuInfo)
   })
 })
+
+chrome.runtime.onInstalled.addListener(installationHandler)
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
   const handler = contextMenuRepository.getHandler(info.menuItemId)
