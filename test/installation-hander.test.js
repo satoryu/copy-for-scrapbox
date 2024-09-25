@@ -27,7 +27,7 @@ describe('installationHandler', () => {
     it('should send installed event to google analytics', async () => {
       await installationHandler({ reason: 'install' })
 
-      expect(sendTrackEvent).toHaveBeenCalledWith({ name: 'installed', params: { version: '4.4.4' } })
+      expect(sendTrackEvent).toHaveBeenCalledWith({ name: 'custom-installed', params: { version: '4.4.4' } })
       expect(chrome.storage.local.set).toHaveBeenCalledWith({ lastInstalledVersion: '4.4.4' })
     })
   })
@@ -37,7 +37,7 @@ describe('installationHandler', () => {
       chrome.storage.local.get.mockReturnValue(Promise.resolve({ lastInstalledVersion: '3.3.3' }))
       await installationHandler({ reason: 'update', previousVersion: '4.4.3' })
 
-      expect(sendTrackEvent).toHaveBeenCalledWith({ name: 'updated', params: { version: '4.4.4', previousVersion: '4.4.3' } })
+      expect(sendTrackEvent).toHaveBeenCalledWith({ name: 'custom-updated', params: { version: '4.4.4', previousVersion: '4.4.3' } })
       expect(chrome.storage.local.set).not.toHaveBeenCalled()
     })
 
@@ -45,7 +45,7 @@ describe('installationHandler', () => {
       chrome.storage.local.get.mockReturnValue(Promise.resolve({ lastInstalledVersion: null }))
       await installationHandler({ reason: 'update', previousVersion: '4.4.3' })
 
-      expect(sendTrackEvent).toHaveBeenCalledWith({ name: 'installed', params: { version: '4.4.4' } })
+      expect(sendTrackEvent).toHaveBeenCalledWith({ name: 'custom-installed', params: { version: '4.4.4' } })
     })
   })
 })
