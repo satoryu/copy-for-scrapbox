@@ -37,6 +37,6 @@
   },
   "homepage": "https://github.com/satoryu/copy-for-scrapbox#readme",
   "dependencies": {
-    "uuid": "^10.0.0"
+    "uuid": "^11.0.1"
   }
 }
