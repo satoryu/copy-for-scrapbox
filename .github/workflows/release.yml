@@ -28,33 +28,19 @@ jobs:
 
       - name: Define package name
         id: package_name
-        run: echo 'package_name=copy-for-scrapbox-${{steps.manifest_version.outputs.value}}' >> $GITHUB_OUTPUT
+        run: echo 'package_name=copy-for-scrapbox-${{steps.manifest_version.outputs.value}}-chrome' >> $GITHUB_OUTPUT
 
       - run: npm install
-      - name: Build
-        run: npm run build
-        env:
-          VITE_GA_ENDPOINT: ${{ secrets.VITE_GA_ENDPOINT }}
-          VITE_MEASUREMENT_ID: ${{ secrets.VITE_MEASUREMENT_ID }}
-          VITE_API_SECRET: ${{ secrets.VITE_API_SECRET }}
-
       - name: Packaging
-        run: |
-          mkdir packages
-          cd dist
-          zip -r ../packages/${{steps.package_name.outputs.package_name}}.zip ./ \
-            -x '*.git*' \
-            -x '*.md' \
-            -x 'LICENSE' \
-            -x '*packages/*'
+        run: npm run zip
 
       - uses: actions/upload-artifact@v4
         with:
           name: ${{steps.package_name.outputs.package_name}}.zip
-          path: packages/${{steps.package_name.outputs.package_name}}.zip
+          path: .output/${{steps.package_name.outputs.package_name}}.zip
 
       - uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/') # Run only when tagged like v1.0.1
         with:
-          files: packages/${{steps.package_name.outputs.package_name}}.zip
+          files: .output/${{steps.package_name.outputs.package_name}}.zip
           generate_release_notes: true
