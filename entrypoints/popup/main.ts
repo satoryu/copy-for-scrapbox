@@ -1,6 +1,6 @@
-import { writeTextToClipboard } from './clipboard';
-import { getCurrentTab, getSelectedTabs, getAllTabsOnCurrentWindow } from './tabs';
-import { createLinkForTab, createLinksForTabs } from './link';
+import { writeTextToClipboard } from '@/utils/clipboard';
+import { getCurrentTab, getSelectedTabs, getAllTabsOnCurrentWindow } from '@/utils/tabs';
+import { createLinkForTab, createLinksForTabs } from '@/utils/link';
 import './popup.css'
 
 let messageBox = document.getElementById('message-box');
