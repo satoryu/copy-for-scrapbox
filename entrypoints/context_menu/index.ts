@@ -1,6 +1,6 @@
 import ContextMenuRepository from './handler_repository'
-import { createLinkForTab } from '../popup/link';
-import { writeTextToClipboard } from '../popup/clipboard';
+import { createLinkForTab } from '@/utils/link';
+import { writeTextToClipboard } from '@/utils/clipboard';
 
 const repository = new ContextMenuRepository()
 
