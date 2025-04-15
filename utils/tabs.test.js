@@ -40,7 +40,7 @@ describe("getSelectedTabs", () => {
 })
 
 describe("getAllTabsOnCurrentWindow", () => {
-  it("passes a specific option to findTabs to get the selected tabs", async () => {
+  it("passes a specific option to findTabs to get all tabs on the current window", async () => {
     const expectedOptions = { currentWindow: true }
 
     await getAllTabsOnCurrentWindow()
