@@ -36,6 +36,10 @@
     "wxt": "^0.20.0"
   },
   "dependencies": {
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "uuid": "^11.1.0"
   }
 }
