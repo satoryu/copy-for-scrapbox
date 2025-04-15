@@ -13,7 +13,8 @@
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
     "postinstall": "wxt prepare",
-    "test": "echo 'TODO: implement test script here'"
+    "test": "vitest",
+    "test:watch": "vitest --watch"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
   "homepage": "https://github.com/satoryu/copy-for-scrapbox#readme",
   "devDependencies": {
     "typescript": "^5.6.3",
+    "vitest": "^3.1.1",
     "wxt": "^0.20.0"
   },
   "dependencies": {
