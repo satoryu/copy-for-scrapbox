@@ -1,0 +1,42 @@
+{
+  "extensionName": {
+    "message": "Copy for Scrapbox",
+    "description": "The name of the extension"
+  },
+  "extensionDescription": {
+    "message": "現在のタブのページへのリンクをScrapbox記法で取得できます。",
+    "description": "The description of the extension"
+  },
+  "copyAllTabsButtonName": {
+    "message": "すべてのタブをコピー",
+    "description": "The name of the button to copy all tabs"
+  },
+  "copyAllTabsMessage": {
+    "message": "すべてのタブをコピーしました！",
+    "description": "The message shown when all tabs are copied"
+  },
+  "copyCurrentTabButtonName": {
+    "message": "現在のタブをコピー",
+    "description": "The name of the button to copy the current tab"
+  },
+  "copyCurrentTabMessage": {
+    "message": "現在のタブをコピーしました！",
+    "description": "The message shown when the current tab is copied"
+  },
+  "copySelectedTabsButtonName": {
+    "message": "選択したタブをコピー",
+    "description": "The name of the button to copy selected tabs"
+  },
+  "copySelectedTabsMessage": {
+    "message": "選択したタブをコピーしました！",
+    "description": "The message shown when selected tabs are copied"
+  },
+  "contextMenuTitle": {
+    "message": "[URL ページタイトル] をコピー",
+    "description": "The title of the context menu"
+  },
+  "contextMenuQuotationTitle": {
+    "message": "引用としてコピー",
+    "description": "The title of the context menu for quotation"
+  }
+}
