@@ -8,17 +8,19 @@ interface CopyCurrentTabButtonProps {
 }
 
 const CopyCurrentTabButton: React.FC<CopyCurrentTabButtonProps> = ({ onCopied }) => {
+  const name = browser.i18n.getMessage('copyCurrentTabButtonName');
+  const message = browser.i18n.getMessage('copyCurrentTabMessage');
   const handleClick = () => {
     getCurrentTab()
       .then(([tab]) => createLinkForTab(tab))
       .then(writeTextToClipboard)
-      .then(() => onCopied('Copied!'))
+      .then(() => onCopied(message))
       .catch(err => console.error(err));
   };
 
   return (
     <button onClick={handleClick}>
-      Copy Current Tab
+      {name}
     </button>
   );
 };

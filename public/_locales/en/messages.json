@@ -1,0 +1,42 @@
+{
+  "extensionName": {
+    "message": "Copy for Scrapbox",
+    "description": "The name of the extension"
+  },
+  "extensionDescription": {
+    "message": "Users can get a link to the page in the current tab in Scrapbox notation.",
+    "description": "The description of the extension"
+  },
+  "copyAllTabsButtonName": {
+    "message": "Copy All Tabs",
+    "description": "The name of the button to copy all tabs"
+  },
+  "copyAllTabsMessage": {
+    "message": "Copied All Tabs!",
+    "description": "The message shown when all tabs are copied"
+  },
+  "copyCurrentTabButtonName": {
+    "message": "Copy Current Tab",
+    "description": "The name of the button to copy the current tab"
+  },
+  "copyCurrentTabMessage": {
+    "message": "Copied Current Tab!",
+    "description": "The message shown when the current tab is copied"
+  },
+  "copySelectedTabsButtonName": {
+    "message": "Copy Selected Tabs",
+    "description": "The name of the button to copy selected tabs"
+  },
+  "copySelectedTabsMessage": {
+    "message": "Copied Selected Tabs!",
+    "description": "The message shown when selected tabs are copied"
+  },
+  "contextMenuTitle": {
+    "message": "Copy [URL PageTitle]",
+    "description": "The title of the context menu"
+  },
+  "contextMenuQuotationTitle": {
+    "message": "Copy as Quotation",
+    "description": "The title of the context menu for quotation"
+  }
+}

@@ -8,17 +8,19 @@ interface CopyAllTabsButtonProps {
 }
 
 const CopyAllTabsButton: React.FC<CopyAllTabsButtonProps> = ({ onCopied }) => {
+  const name = browser.i18n.getMessage('copyAllTabsButtonName');
+  const message = browser.i18n.getMessage('copyAllTabsMessage');
   const handleClick = () => {
     getAllTabsOnCurrentWindow()
       .then(createLinksForTabs)
       .then(writeTextToClipboard)
-      .then(() => onCopied('Copied All Tabs!'))
+      .then(() => onCopied(message))
       .catch(err => console.error(err));
   };
 
   return (
     <button onClick={handleClick}>
-      Copy All Tabs
+      {name}
     </button>
   );
 };

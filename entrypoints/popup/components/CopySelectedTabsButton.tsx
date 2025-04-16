@@ -17,17 +17,20 @@ const CopySelectedTabsButton: React.FC<CopySelectedTabsButtonProps> = ({ onCopie
     });
   }, []);
 
+  const name = browser.i18n.getMessage('copySelectedTabsButtonName');
+  const message = browser.i18n.getMessage('copySelectedTabsMessage');
+
   const handleClick = () => {
     getSelectedTabs()
       .then(createLinksForTabs)
       .then(writeTextToClipboard)
-      .then(() => onCopied('Copied Selected Tabs!'))
+      .then(() => onCopied(message))
       .catch(err => console.error(err));
   };
 
   return (
     <button onClick={handleClick}>
-      Copy Selected Tabs ({selectedTabsCount})
+      {name} ({selectedTabsCount})
     </button>
   );
 };
