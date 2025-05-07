@@ -1,0 +1,42 @@
+{
+  "extensionName": {
+    "message": "Copy for Scrapbox",
+    "description": "The name of the extension"
+  },
+  "extensionDescription": {
+    "message": "用户可以以 Scrapbox 格式获取当前标签页的链接。",
+    "description": "The description of the extension"
+  },
+  "copyAllTabsButtonName": {
+    "message": "复制所有标签页",
+    "description": "The name of the button to copy all tabs"
+  },
+  "copyAllTabsMessage": {
+    "message": "已复制所有标签页！",
+    "description": "The message shown when all tabs are copied"
+  },
+  "copyCurrentTabButtonName": {
+    "message": "复制当前标签页",
+    "description": "The name of the button to copy the current tab"
+  },
+  "copyCurrentTabMessage": {
+    "message": "已复制当前标签页！",
+    "description": "The message shown when the current tab is copied"
+  },
+  "copySelectedTabsButtonName": {
+    "message": "复制已选标签页",
+    "description": "The name of the button to copy selected tabs"
+  },
+  "copySelectedTabsMessage": {
+    "message": "已复制已选标签页！",
+    "description": "The message shown when selected tabs are copied"
+  },
+  "contextMenuTitle": {
+    "message": "复制 [网址 页面标题]",
+    "description": "The title of the context menu"
+  },
+  "contextMenuQuotationTitle": {
+    "message": "复制为引用",
+    "description": "The title of the context menu for quotation"
+  }
+}
