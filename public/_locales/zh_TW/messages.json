@@ -1,0 +1,42 @@
+{
+  "extensionName": {
+    "message": "Copy for Scrapbox",
+    "description": "The name of the extension"
+  },
+  "extensionDescription": {
+    "message": "使用者可以以 Scrapbox 格式獲取當前分頁的連結。",
+    "description": "The description of the extension"
+  },
+  "copyAllTabsButtonName": {
+    "message": "複製所有分頁",
+    "description": "The name of the button to copy all tabs"
+  },
+  "copyAllTabsMessage": {
+    "message": "已複製所有分頁！",
+    "description": "The message shown when all tabs are copied"
+  },
+  "copyCurrentTabButtonName": {
+    "message": "複製當前分頁",
+    "description": "The name of the button to copy the current tab"
+  },
+  "copyCurrentTabMessage": {
+    "message": "已複製當前分頁！",
+    "description": "The message shown when the current tab is copied"
+  },
+  "copySelectedTabsButtonName": {
+    "message": "複製選取的分頁",
+    "description": "The name of the button to copy selected tabs"
+  },
+  "copySelectedTabsMessage": {
+    "message": "已複製選取的分頁！",
+    "description": "The message shown when selected tabs are copied"
+  },
+  "contextMenuTitle": {
+    "message": "複製 [網址 頁面標題]",
+    "description": "The title of the context menu"
+  },
+  "contextMenuQuotationTitle": {
+    "message": "複製為引用",
+    "description": "The title of the context menu for quotation"
+  }
+}
