@@ -44,3 +44,5 @@ Visit [Chrome Web Store](https://chrome.google.com/webstore/detail/copy-for-scra
 I'm welcoming your feedbacks and requests!
 Please visit "Support" tab on Chrome Web Store. You can contact the publisher(it' me!).
 If you have GitHub account, you can open [new ticket on GitHub](https://github.com/satoryu/copy-for-scrapbox/issues/new).
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="satoryu" data-description="Support me on Buy me a coffee!" data-message="Thank you for visiting this site. now you can support me by buying me coffee." data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
