@@ -32,7 +32,7 @@
   "homepage": "https://github.com/satoryu/copy-for-scrapbox#readme",
   "devDependencies": {
     "typescript": "^5.8.3",
-    "vitest": "^3.1.4",
+    "vitest": "^3.2.0",
     "wxt": "^0.20.6"
   },
   "dependencies": {
