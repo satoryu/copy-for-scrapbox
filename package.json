@@ -33,7 +33,7 @@
   "devDependencies": {
     "typescript": "^5.9.2",
     "vitest": "^3.2.4",
-    "wxt": "^0.20.7"
+    "wxt": "^0.20.8"
   },
   "dependencies": {
     "@types/react": "^19.1.9",
