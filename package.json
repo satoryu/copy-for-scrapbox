@@ -37,9 +37,9 @@
   },
   "dependencies": {
     "@types/react": "^19.1.15",
-    "@types/react-dom": "^19.1.9",
+    "@types/react-dom": "^19.2.0",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "react-dom": "^19.2.0",
     "uuid": "^13.0.0"
   }
 }
