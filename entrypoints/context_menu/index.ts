@@ -6,7 +6,7 @@ const repository = new ContextMenuRepository()
 
 repository.registerHandler({
   id: 'copy-for-scrapbox',
-  title: 'Copy [URL PageTitle]',
+  title: '__MSG_contextMenuTitle__',
   handler: async (_info, tab) => {
     createLinkForTab(tab).then((text) => {
       const tabId = tab.id
@@ -25,7 +25,7 @@ repository.registerHandler({
 
 repository.registerHandler({
   id: 'copy-selection-as-quotation',
-  title: 'Copy as Quotation',
+  title: '__MSG_contextMenuQuotationTitle__',
   contexts: ['selection'],
   handler: async (info, tab) => {
     createLinkForTab(tab)
@@ -42,6 +42,19 @@ repository.registerHandler({
         args: [text]
       })
     })
+  }
+})
+
+repository.registerHandler({
+  id: 'open-clipboard-history',
+  title: '__MSG_contextMenuOpenHistory__',
+  handler: async (_info, tab) => {
+    const windowId = tab.windowId;
+    if (windowId === undefined) {
+      console.error('Window ID is undefined');
+      return;
+    }
+    await browser.sidePanel.open({ windowId });
   }
 })
 
