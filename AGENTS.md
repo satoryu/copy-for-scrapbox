@@ -151,6 +151,182 @@ npm run test:watch    # Watch mode
 - Integration tests for full workflows
 - Context menu handlers
 
+### Test-Driven Development (TDD)
+
+**This project follows Test-Driven Development practices. Always write tests BEFORE implementation.**
+
+#### TDD Cycle (Red-Green-Refactor)
+
+1. **🔴 Red - Write a Failing Test**
+   - Before writing any new code, write a test that fails
+   - The test should describe the desired behavior
+   - Run the test to confirm it fails for the right reason
+   - Command: `npm test` or `npm run test:watch`
+
+2. **🟢 Green - Make the Test Pass**
+   - Write the minimum code necessary to make the test pass
+   - Don't worry about perfection yet
+   - Focus on making the test green
+   - Run tests to confirm they pass
+
+3. **♻️ Refactor - Improve the Code**
+   - Clean up the code while keeping tests green
+   - Improve structure, readability, performance
+   - Remove duplication
+   - Run tests after each refactoring step
+
+#### TDD Workflow for This Project
+
+**For Utility Functions** (e.g., `utils/link.ts`, `utils/tabs.ts`):
+```bash
+# 1. Write test first
+vim utils/myfeature.test.js  # Write failing test
+
+# 2. Run test (should fail)
+npm test
+
+# 3. Implement feature
+vim utils/myfeature.ts  # Write minimal implementation
+
+# 4. Run test (should pass)
+npm test
+
+# 5. Refactor if needed
+vim utils/myfeature.ts  # Improve code quality
+
+# 6. Verify tests still pass
+npm test
+```
+
+**For React Components** (e.g., popup buttons):
+```bash
+# 1. Write component test first (if testable)
+vim entrypoints/popup/components/MyButton.test.tsx
+
+# 2. Write minimal component
+vim entrypoints/popup/components/MyButton.tsx
+
+# 3. Iterate until tests pass
+npm run test:watch  # Keep running in watch mode
+```
+
+**For Bug Fixes**:
+```bash
+# 1. Write a test that reproduces the bug (should fail)
+vim utils/link.test.js  # Add test case that fails due to bug
+
+# 2. Run test to confirm it fails
+npm test
+
+# 3. Fix the bug
+vim utils/link.ts  # Make the fix
+
+# 4. Run test to confirm fix (should pass)
+npm test
+```
+
+#### TDD Best Practices for This Project
+
+1. **Start with the Test**
+   - Never write production code without a failing test first
+   - The test defines the contract/API of your code
+
+2. **Keep Tests Simple and Focused**
+   - One test per behavior
+   - Clear test names describing what is being tested
+   - Use descriptive assertions
+
+3. **Test File Location**
+   - Place tests next to source files: `link.ts` → `link.test.js`
+   - Use same directory structure
+
+4. **Mock Browser APIs**
+   - Always mock `browser.tabs`, `browser.i18n`, etc.
+   - Use Vitest's mocking capabilities
+   - See existing tests for examples
+
+5. **Watch Mode During Development**
+   - Run `npm run test:watch` to get immediate feedback
+   - Tests re-run automatically on file changes
+
+6. **Test Coverage Goals**
+   - Aim for high coverage of utility functions
+   - Test edge cases and error conditions
+   - Test i18n message retrieval
+   - Test link formatting edge cases (special characters, etc.)
+
+#### Example TDD Session
+
+**Task**: Add a function to remove emoji from link titles
+
+```javascript
+// Step 1: Write failing test in utils/link.test.js
+import { describe, it, expect } from 'vitest';
+import { removeEmoji } from './link';
+
+describe('removeEmoji', () => {
+  it('should remove emoji from title', () => {
+    expect(removeEmoji('Hello 👋 World')).toBe('Hello  World');
+  });
+
+  it('should handle titles without emoji', () => {
+    expect(removeEmoji('Hello World')).toBe('Hello World');
+  });
+});
+
+// Run: npm test
+// Result: ❌ FAIL - removeEmoji is not defined
+
+// Step 2: Write minimal implementation in utils/link.ts
+export function removeEmoji(title: string): string {
+  return title.replace(/[\u{1F600}-\u{1F6FF}]/gu, '');
+}
+
+// Run: npm test
+// Result: ❌ FAIL - regex doesn't cover all emoji
+
+// Step 3: Fix implementation
+export function removeEmoji(title: string): string {
+  return title.replace(/[\u{1F000}-\u{1F9FF}]/gu, '');
+}
+
+// Run: npm test
+// Result: ✅ PASS
+
+// Step 4: Refactor if needed (tests still pass)
+export function removeEmoji(title: string): string {
+  // More comprehensive emoji regex
+  return title.replace(
+    /[\u{1F000}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu,
+    ''
+  );
+}
+
+// Run: npm test
+// Result: ✅ PASS
+```
+
+#### When TDD Might Be Skipped
+
+In rare cases, TDD might be challenging:
+- Initial UI layout/styling exploration
+- Chrome extension permissions setup
+- Manifest configuration changes
+
+**However**, even in these cases:
+- Add tests after implementation
+- Write tests for any logic extracted from UI
+- Test integration points
+
+#### Benefits of TDD for This Project
+
+1. **Confidence in Changes**: Tests catch regressions immediately
+2. **Better Design**: Writing tests first leads to better APIs
+3. **Documentation**: Tests serve as executable documentation
+4. **Refactoring Safety**: Can improve code without fear
+5. **Debugging**: Failing test pinpoints exact issue
+6. **CI/CD**: Automated testing prevents broken deployments
+
 ## Build and Development
 
 ### Development Commands
@@ -166,12 +342,43 @@ npm test                 # Run tests
 ```
 
 ### Development Workflow
-1. Run `npm run dev` for hot-reload development
-2. Load unpacked extension from `.output/chrome-mv3/`
-3. Make changes (auto-reloads in browser)
-4. Run tests: `npm test`
-5. Type check: `npm run compile`
-6. Commit changes with descriptive messages
+
+**Test-Driven Development (TDD) workflow:**
+
+1. **Write test first**
+   - Create/update test file (e.g., `utils/myfeature.test.js`)
+   - Write test describing desired behavior
+   - Run `npm test` to see it fail (Red)
+
+2. **Run development server** (optional, for UI work)
+   - `npm run dev` for hot-reload development
+   - Load unpacked extension from `.output/chrome-mv3/`
+
+3. **Implement feature**
+   - Write minimal code to pass the test
+   - For utilities: edit files in `utils/`
+   - For UI: edit files in `entrypoints/popup/`
+
+4. **Run tests** to see them pass (Green)
+   - `npm test` or `npm run test:watch`
+   - All tests must pass
+
+5. **Refactor** if needed
+   - Clean up code while keeping tests green
+   - Run tests after each change
+
+6. **Type check**
+   - `npm run compile`
+   - Fix any TypeScript errors
+
+7. **Manual testing** in browser
+   - Test the feature works as expected
+   - Check all affected functionality
+
+8. **Commit changes** with descriptive messages
+   - All tests passing
+   - TypeScript compiling
+   - Feature working in browser
 
 ### Build Output
 - `.output/` - Build artifacts (gitignored)
@@ -218,24 +425,101 @@ npm test                 # Run tests
 ## Common Development Tasks
 
 ### Adding a New Popup Button
-1. Create component in `entrypoints/popup/components/`
-2. Import and use in `entrypoints/popup/App.tsx`
-3. Add i18n messages to all 4 locale files
-4. Add click handler logic (usually calls `utils/clipboard.ts`)
-5. Write tests if complex logic involved
+
+**Follow TDD approach:**
+
+1. **Write test first** (if logic is testable)
+   - Create test file if testing component behavior
+   - Or test the underlying utility function
+
+2. **Create component** in `entrypoints/popup/components/`
+   - Write minimal component to pass tests
+   - Use React functional component with hooks
+
+3. **Add i18n messages** to all 4 locale files
+   - `public/_locales/{en,ja,zh_CN,zh_TW}/messages.json`
+   - Use snake_case keys
+
+4. **Import and use** in `entrypoints/popup/App.tsx`
+   - Add component to UI
+   - Wire up state and callbacks
+
+5. **Add click handler logic**
+   - Usually calls `utils/clipboard.ts`
+   - If complex logic, extract to utility function with tests
+
+6. **Run tests**: `npm test`
+
+7. **Test manually in browser**
+   - Load extension in `chrome://extensions`
+   - Verify button works as expected
 
 ### Adding a Context Menu Item
-1. Add handler function in appropriate module
-2. Register handler in `entrypoints/context_menu/handler_repository.ts`
-3. Add menu item in `entrypoints/context_menu/index.ts`
-4. Add i18n messages for menu text
-5. Test right-click menu in browser
+
+**Follow TDD approach:**
+
+1. **Write test for handler function first**
+   - Test the handler logic in isolation
+   - Mock browser APIs
+
+2. **Implement handler function**
+   - Add to appropriate module
+   - Make tests pass
+
+3. **Register handler** in `entrypoints/context_menu/handler_repository.ts`
+
+4. **Add menu item** in `entrypoints/context_menu/index.ts`
+
+5. **Add i18n messages** for menu text
+   - Update all 4 locale files
+
+6. **Run tests**: `npm test`
+
+7. **Test right-click menu** in browser
+   - Verify menu appears
+   - Verify handler executes correctly
 
 ### Modifying Link Format
-1. **IMPORTANT**: All changes go in `utils/link.ts`
-2. Update tests in `utils/link.test.js`
-3. Test with various URL/title combinations
-4. Consider Scrapbox syntax constraints (no brackets, backticks)
+
+**CRITICAL: Always follow TDD for link formatting changes**
+
+1. **Write failing test FIRST** in `utils/link.test.js`
+   - Describe the desired behavior
+   - Include edge cases
+   - Run `npm test` to see it fail
+
+2. **Implement change** in `utils/link.ts`
+   - **IMPORTANT**: All changes go in `utils/link.ts`
+   - Write minimal code to pass test
+   - Consider Scrapbox syntax constraints (no brackets, backticks)
+
+3. **Run tests**: `npm test` (should pass now)
+
+4. **Test with various URL/title combinations**
+   - Add more test cases if needed
+   - Test special characters, unicode, etc.
+
+5. **Refactor if needed**
+   - Clean up code
+   - Ensure tests still pass
+
+**Example TDD workflow for link format change:**
+```bash
+# 1. Write test
+vim utils/link.test.js  # Add test case
+
+# 2. Run test (should fail)
+npm test
+
+# 3. Implement
+vim utils/link.ts
+
+# 4. Run test (should pass)
+npm test
+
+# 5. Manual verification
+npm run dev  # Test in browser
+```
 
 ### Adding a New Locale
 1. Copy existing locale folder in `public/_locales/`
@@ -391,13 +675,84 @@ npm run build && npm run zip
 
 ### When Making Changes
 
-1. **Always read files first** before modifying
-2. **Update all 4 locale files** if changing UI text
-3. **Run tests** after utility changes
-4. **Update tests** when changing tested code
-5. **Check TypeScript** compilation before committing
-6. **Keep changes minimal** - this is a focused, simple extension
-7. **Preserve link formatting logic** - it's critical to Scrapbox compatibility
+**CRITICAL: This project follows Test-Driven Development (TDD). Always write tests BEFORE implementation.**
+
+#### TDD Workflow for AI Agents
+
+1. **FIRST: Write the test**
+   - Before writing ANY production code, create a failing test
+   - Describe the expected behavior in the test
+   - Run `npm test` to verify the test fails (Red)
+   - Example: If adding a new function to `utils/link.ts`, first add test cases to `utils/link.test.js`
+
+2. **SECOND: Write minimal implementation**
+   - Write just enough code to make the test pass
+   - Don't add extra features or "nice-to-haves"
+   - Run `npm test` to verify tests pass (Green)
+
+3. **THIRD: Refactor if needed**
+   - Improve code quality while keeping tests green
+   - Run `npm test` after each change
+
+4. **Always read files first** before modifying
+
+5. **Update all 4 locale files** if changing UI text
+   - `public/_locales/{en,ja,zh_CN,zh_TW}/messages.json`
+
+6. **Run tests** after every change
+   - Use `npm test` or `npm run test:watch`
+   - All tests must pass before committing
+
+7. **Update/add tests** when changing any code
+   - If fixing a bug, write a test that reproduces it first
+   - If adding a feature, write tests for all new code paths
+
+8. **Check TypeScript** compilation before committing
+   - Run `npm run compile`
+
+9. **Keep changes minimal** - this is a focused, simple extension
+
+10. **Preserve link formatting logic** - it's critical to Scrapbox compatibility
+
+#### Mandatory TDD Examples for AI Agents
+
+**Example 1: Adding a new utility function**
+```bash
+# ❌ WRONG: Don't do this
+# Write utils/newfeature.ts first
+
+# ✅ CORRECT: Do this
+# 1. Write utils/newfeature.test.js first
+# 2. Run npm test (should fail)
+# 3. Write utils/newfeature.ts
+# 4. Run npm test (should pass)
+```
+
+**Example 2: Fixing a bug**
+```bash
+# ❌ WRONG: Don't do this
+# 1. Fix the bug in utils/link.ts
+# 2. Run tests
+
+# ✅ CORRECT: Do this
+# 1. Add test case in utils/link.test.js that reproduces the bug (fails)
+# 2. Run npm test to confirm test fails
+# 3. Fix the bug in utils/link.ts
+# 4. Run npm test to confirm test passes
+```
+
+**Example 3: Modifying existing functionality**
+```bash
+# ❌ WRONG: Don't do this
+# 1. Modify utils/link.ts
+# 2. Update utils/link.test.js
+
+# ✅ CORRECT: Do this
+# 1. Add/modify test in utils/link.test.js to reflect new behavior (fails)
+# 2. Run npm test to confirm test fails
+# 3. Modify utils/link.ts to implement new behavior
+# 4. Run npm test to confirm test passes
+```
 
 ### Code Style
 - Follow existing patterns in the codebase
