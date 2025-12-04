@@ -38,5 +38,37 @@
   "contextMenuQuotationTitle": {
     "message": "複製為引用",
     "description": "The title of the context menu for quotation"
+  },
+  "contextMenuOpenHistory": {
+    "message": "開啟剪貼簿歷史",
+    "description": "The title of the context menu to open clipboard history"
+  },
+  "sidepanelTitle": {
+    "message": "剪貼簿歷史",
+    "description": "The title of the sidepanel"
+  },
+  "sidepanelEmpty": {
+    "message": "暫無剪貼簿歷史",
+    "description": "The message shown when there is no clipboard history"
+  },
+  "copiedFeedback": {
+    "message": "已複製！",
+    "description": "The feedback message shown when an item is copied"
+  },
+  "timeJustNow": {
+    "message": "剛剛",
+    "description": "Time indicator for items copied just now"
+  },
+  "timeMinutesAgo": {
+    "message": "$1分鐘前",
+    "description": "Time indicator for items copied minutes ago"
+  },
+  "timeHoursAgo": {
+    "message": "$1小時前",
+    "description": "Time indicator for items copied hours ago"
+  },
+  "timeDaysAgo": {
+    "message": "$1天前",
+    "description": "Time indicator for items copied days ago"
   }
 }

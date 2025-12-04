@@ -38,5 +38,37 @@
   "contextMenuQuotationTitle": {
     "message": "Copy as Quotation",
     "description": "The title of the context menu for quotation"
+  },
+  "contextMenuOpenHistory": {
+    "message": "Open Clipboard History",
+    "description": "The title of the context menu to open clipboard history"
+  },
+  "sidepanelTitle": {
+    "message": "Clipboard History",
+    "description": "The title of the sidepanel"
+  },
+  "sidepanelEmpty": {
+    "message": "No clipboard history yet",
+    "description": "The message shown when there is no clipboard history"
+  },
+  "copiedFeedback": {
+    "message": "Copied!",
+    "description": "The feedback message shown when an item is copied"
+  },
+  "timeJustNow": {
+    "message": "Just now",
+    "description": "Time indicator for items copied just now"
+  },
+  "timeMinutesAgo": {
+    "message": "$1 minutes ago",
+    "description": "Time indicator for items copied minutes ago"
+  },
+  "timeHoursAgo": {
+    "message": "$1 hours ago",
+    "description": "Time indicator for items copied hours ago"
+  },
+  "timeDaysAgo": {
+    "message": "$1 days ago",
+    "description": "Time indicator for items copied days ago"
   }
 }

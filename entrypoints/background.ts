@@ -5,7 +5,17 @@ export default defineBackground(() => {
 
   browser.runtime.onInstalled.addListener(function () {
     contextMenuRepository.getContextMenuInfo().forEach((contextMenuInfo) => {
-      browser.contextMenus.create(contextMenuInfo)
+      // Resolve i18n messages if title starts with __MSG_
+      let title = contextMenuInfo.title;
+      if (title.startsWith('__MSG_') && title.endsWith('__')) {
+        const messageKey = title.slice(6, -2);
+        title = (browser.i18n.getMessage as any)(messageKey) || title;
+      }
+
+      browser.contextMenus.create({
+        ...contextMenuInfo,
+        title
+      })
     })
   })
 
