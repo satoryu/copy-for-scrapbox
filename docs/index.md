@@ -35,6 +35,22 @@ As shown in this screenshot, one context menu is provided for copying a link to 
 
 This context menu copies selected text as quote in Scrapbox notation.
 
+### Clipboard History
+
+The extension automatically saves your clipboard history (up to 100 recent items) when you copy links using any of the extension's features. You can access your clipboard history through the context menu:
+
+- Right-click on any webpage and select "Open Clipboard History"
+- A side panel will open showing your recent copies with timestamps
+- Click any history item to copy it back to your clipboard
+- Visual "Copied!" feedback confirms successful copying
+- History updates in real-time as you copy new items
+- Timestamps show relative time (e.g., "5 minutes ago", "2 hours ago")
+
+This feature makes it easy to:
+- Retrieve recently copied links without re-copying them
+- Keep track of your research and note-taking workflow
+- Quickly access frequently used links from your history
+
 ## How to install
 
 Visit [Chrome Web Store](https://chrome.google.com/webstore/detail/copy-for-scrapbox/kalhokahkhkmbkiliieonfdmdeajlnog) and click "Add to Chrome" button.

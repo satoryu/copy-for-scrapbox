@@ -38,5 +38,37 @@
   "contextMenuQuotationTitle": {
     "message": "引用としてコピー",
     "description": "The title of the context menu for quotation"
+  },
+  "contextMenuOpenHistory": {
+    "message": "クリップボード履歴を開く",
+    "description": "The title of the context menu to open clipboard history"
+  },
+  "sidepanelTitle": {
+    "message": "クリップボード履歴",
+    "description": "The title of the sidepanel"
+  },
+  "sidepanelEmpty": {
+    "message": "まだクリップボード履歴がありません",
+    "description": "The message shown when there is no clipboard history"
+  },
+  "copiedFeedback": {
+    "message": "コピーしました！",
+    "description": "The feedback message shown when an item is copied"
+  },
+  "timeJustNow": {
+    "message": "たった今",
+    "description": "Time indicator for items copied just now"
+  },
+  "timeMinutesAgo": {
+    "message": "$1分前",
+    "description": "Time indicator for items copied minutes ago"
+  },
+  "timeHoursAgo": {
+    "message": "$1時間前",
+    "description": "Time indicator for items copied hours ago"
+  },
+  "timeDaysAgo": {
+    "message": "$1日前",
+    "description": "Time indicator for items copied days ago"
   }
 }

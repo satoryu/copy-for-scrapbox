@@ -6,7 +6,7 @@ export default defineConfig({
     name: '__MSG_extensionName__',
     description: '__MSG_extensionDescription__',
     manifest_version: 3,
-    permissions: [ 'tabs', 'contextMenus', 'scripting' ],
+    permissions: [ 'tabs', 'contextMenus', 'scripting', 'storage', 'sidePanel' ],
     host_permissions: [
       'https://*/*'
     ],
