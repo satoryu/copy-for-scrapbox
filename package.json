@@ -2,7 +2,7 @@
   "name": "Copy for Scrapbox",
   "description": "This is a Chrome extension which helps [scrapbox](https://scrapbox.io/) users to create a link. Users can generate a link to the page in the current tab in Scrapbox format and copy it to their clipboad.",
   "private": true,
-  "version": "1.10.0",
+  "version": "1.11.0",
   "type": "module",
   "scripts": {
     "dev": "wxt",
