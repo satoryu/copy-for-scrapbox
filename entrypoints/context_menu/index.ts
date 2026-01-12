@@ -26,6 +26,7 @@ repository.registerHandler({
 repository.registerHandler({
   id: 'copy-selection-as-quotation',
   title: '__MSG_contextMenuQuotationTitle__',
+  // @ts-expect-error - 'selection' is a valid context type for Chrome extensions
   contexts: ['selection'],
   handler: async (info, tab) => {
     createLinkForTab(tab)

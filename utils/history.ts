@@ -9,7 +9,7 @@ const MAX_HISTORY_ITEMS = 100;
 
 async function getHistory(): Promise<ClipboardHistoryItem[]> {
   const result = await browser.storage.local.get(STORAGE_KEY);
-  return result[STORAGE_KEY] || [];
+  return (result[STORAGE_KEY] as ClipboardHistoryItem[] | undefined) || [];
 }
 
 async function addToHistory(text: string): Promise<void> {

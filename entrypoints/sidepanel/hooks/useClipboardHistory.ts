@@ -7,9 +7,9 @@ export function useClipboardHistory() {
   useEffect(() => {
     loadHistory();
 
-    const handleStorageChange = (changes: { [key: string]: browser.storage.StorageChange }) => {
+    const handleStorageChange = (changes: Record<string, Browser.storage.StorageChange>) => {
       if (changes.clipboardHistory) {
-        setHistory(changes.clipboardHistory.newValue || []);
+        setHistory((changes.clipboardHistory.newValue as ClipboardHistoryItem[] | undefined) || []);
       }
     };
 
