@@ -29,6 +29,8 @@ This document provides comprehensive guidance for AI agents working on the Copy 
 
 ## Architecture
 
+> **📖 For detailed architecture documentation including module dependencies, data flows, and design decisions, see [docs/architecture.md](docs/architecture.md)**
+
 ### Project Structure
 
 ```
@@ -52,6 +54,9 @@ This document provides comprehensive guidance for AI agents working on the Copy 
 ├── public/                  # Static files
 │   ├── _locales/           # i18n messages
 │   └── icon/               # Extension icons
+├── docs/                    # Documentation
+│   ├── architecture.md      # Module dependencies and design
+│   └── development-guideline.md  # Development guidelines
 ├── wxt.config.ts           # WXT configuration
 ├── tsconfig.json           # TypeScript config
 └── vitest.config.ts        # Test configuration
@@ -69,6 +74,8 @@ This document provides comprehensive guidance for AI agents working on the Copy 
 - `entrypoints/context_menu/handler_repository.ts` - Repository pattern for menu handlers
 
 ## Development Guidelines
+
+> **📖 For comprehensive development guidelines including TDD workflow, coding standards, testing strategy, Git workflow, and common tasks, see [docs/development-guideline.md](docs/development-guideline.md)**
 
 ### Coding Conventions
 
@@ -553,7 +560,9 @@ npm run dev  # Test in browser
 - `README.md` - User-facing documentation
 - `CONTRIBUTING.md` - Contribution guidelines
 - `CODE_OF_CONDUCT.md` - Community standards
-- `docs/` - GitHub Pages documentation site
+- `CLAUDE.md` (this file) - AI agent development guide
+- `docs/architecture.md` - **Module dependencies, data flows, and architectural design**
+- `docs/development-guideline.md` - **Comprehensive development guidelines (TDD, coding standards, workflows)**
 
 ## Working with WXT
 
@@ -628,7 +637,11 @@ Based on codebase analysis, here are areas for enhancement:
 
 ## Resources
 
-### Documentation
+### Project Documentation
+- **[Architecture Documentation](docs/architecture.md)** - Module dependencies, layered architecture, data flows, design decisions
+- **[Development Guidelines](docs/development-guideline.md)** - TDD workflow, coding standards, testing, Git workflow, common tasks
+
+### External Documentation
 - [WXT Documentation](https://wxt.dev/)
 - [Chrome Extension Docs](https://developer.chrome.com/docs/extensions/)
 - [Scrapbox Help](https://scrapbox.io/help/)
@@ -672,6 +685,10 @@ npm run build && npm run zip
 ---
 
 ## For AI Agents: Special Instructions
+
+> **📖 Important Resources for AI Agents:**
+> - **[docs/architecture.md](docs/architecture.md)** - Understand module dependencies before making changes
+> - **[docs/development-guideline.md](docs/development-guideline.md)** - Follow detailed development workflow and best practices
 
 ### When Making Changes
 
