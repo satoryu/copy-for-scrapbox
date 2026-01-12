@@ -12,8 +12,17 @@ describe("writeTextToClipboard", () => {
     // Reset mocks before each test
     vi.clearAllMocks();
 
+    // Mock navigator object if it doesn't exist (for Node.js environment)
+    if (!globalThis.navigator) {
+      Object.defineProperty(globalThis, 'navigator', {
+        value: {},
+        writable: true,
+        configurable: true,
+      });
+    }
+
     // Mock navigator.clipboard.writeText
-    Object.defineProperty(navigator, "clipboard", {
+    Object.defineProperty(globalThis.navigator, "clipboard", {
       value: {
         writeText: vi.fn().mockResolvedValue(undefined),
       },
