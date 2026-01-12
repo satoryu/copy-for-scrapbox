@@ -481,6 +481,10 @@ const sanitizedTitle = title.replaceAll(/[\[\]]/g, '');
 
 ## Testing Guidelines
 
+> **📖 For comprehensive testing strategy including coverage goals, test layers, tools, and implementation roadmap, see [testing.md](testing.md)**
+
+This section covers practical testing guidelines for writing tests.
+
 ### Test Structure
 
 ```javascript
