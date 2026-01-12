@@ -137,202 +137,29 @@ This document provides comprehensive guidance for AI agents working on the Copy 
 
 ## Testing Strategy
 
+> **📖 For comprehensive testing strategy including coverage goals, test layers (unit/component/integration/E2E), tools, mocking strategy, and implementation roadmap, see [docs/testing.md](docs/testing.md)**
+
 ### Running Tests
 ```bash
 npm test              # Run tests once
 npm run test:watch    # Watch mode
+npm run test:coverage # Run with coverage report
 ```
 
-### Test Coverage
-- Unit tests for utility functions: `utils/*.test.js`
-- Uses Vitest with browser API mocking
-- Mock Chrome APIs using test helpers
+### Key Principles
 
-### Writing Tests
-- Place tests alongside source files (e.g., `link.test.js` next to `link.ts`)
-- Mock browser APIs: `browser.tabs.query`, `browser.i18n.getMessage`
-- Focus on utility logic and edge cases
+- **Test-Driven Development (TDD)**: Always write tests BEFORE implementation
+- **80%+ Coverage Goal**: Target 80% overall, 100% for critical paths
+- **Test Location**: Place tests next to source files (e.g., `link.test.js` next to `link.ts`)
+- **Browser API Mocking**: Use WxtVitest's `fakeBrowser` for all browser APIs
+- **Fast Feedback**: Keep unit/component tests under 10 seconds total
 
-### Areas Needing More Tests
-- React components (currently no component tests)
-- Integration tests for full workflows
-- Context menu handlers
+### Current Test Coverage
 
-### Test-Driven Development (TDD)
-
-**This project follows Test-Driven Development practices. Always write tests BEFORE implementation.**
-
-#### TDD Cycle (Red-Green-Refactor)
-
-1. **🔴 Red - Write a Failing Test**
-   - Before writing any new code, write a test that fails
-   - The test should describe the desired behavior
-   - Run the test to confirm it fails for the right reason
-   - Command: `npm test` or `npm run test:watch`
-
-2. **🟢 Green - Make the Test Pass**
-   - Write the minimum code necessary to make the test pass
-   - Don't worry about perfection yet
-   - Focus on making the test green
-   - Run tests to confirm they pass
-
-3. **♻️ Refactor - Improve the Code**
-   - Clean up the code while keeping tests green
-   - Improve structure, readability, performance
-   - Remove duplication
-   - Run tests after each refactoring step
-
-#### TDD Workflow for This Project
-
-**For Utility Functions** (e.g., `utils/link.ts`, `utils/tabs.ts`):
-```bash
-# 1. Write test first
-vim utils/myfeature.test.js  # Write failing test
-
-# 2. Run test (should fail)
-npm test
-
-# 3. Implement feature
-vim utils/myfeature.ts  # Write minimal implementation
-
-# 4. Run test (should pass)
-npm test
-
-# 5. Refactor if needed
-vim utils/myfeature.ts  # Improve code quality
-
-# 6. Verify tests still pass
-npm test
-```
-
-**For React Components** (e.g., popup buttons):
-```bash
-# 1. Write component test first (if testable)
-vim entrypoints/popup/components/MyButton.test.tsx
-
-# 2. Write minimal component
-vim entrypoints/popup/components/MyButton.tsx
-
-# 3. Iterate until tests pass
-npm run test:watch  # Keep running in watch mode
-```
-
-**For Bug Fixes**:
-```bash
-# 1. Write a test that reproduces the bug (should fail)
-vim utils/link.test.js  # Add test case that fails due to bug
-
-# 2. Run test to confirm it fails
-npm test
-
-# 3. Fix the bug
-vim utils/link.ts  # Make the fix
-
-# 4. Run test to confirm fix (should pass)
-npm test
-```
-
-#### TDD Best Practices for This Project
-
-1. **Start with the Test**
-   - Never write production code without a failing test first
-   - The test defines the contract/API of your code
-
-2. **Keep Tests Simple and Focused**
-   - One test per behavior
-   - Clear test names describing what is being tested
-   - Use descriptive assertions
-
-3. **Test File Location**
-   - Place tests next to source files: `link.ts` → `link.test.js`
-   - Use same directory structure
-
-4. **Mock Browser APIs**
-   - Always mock `browser.tabs`, `browser.i18n`, etc.
-   - Use Vitest's mocking capabilities
-   - See existing tests for examples
-
-5. **Watch Mode During Development**
-   - Run `npm run test:watch` to get immediate feedback
-   - Tests re-run automatically on file changes
-
-6. **Test Coverage Goals**
-   - Aim for high coverage of utility functions
-   - Test edge cases and error conditions
-   - Test i18n message retrieval
-   - Test link formatting edge cases (special characters, etc.)
-
-#### Example TDD Session
-
-**Task**: Add a function to remove emoji from link titles
-
-```javascript
-// Step 1: Write failing test in utils/link.test.js
-import { describe, it, expect } from 'vitest';
-import { removeEmoji } from './link';
-
-describe('removeEmoji', () => {
-  it('should remove emoji from title', () => {
-    expect(removeEmoji('Hello 👋 World')).toBe('Hello  World');
-  });
-
-  it('should handle titles without emoji', () => {
-    expect(removeEmoji('Hello World')).toBe('Hello World');
-  });
-});
-
-// Run: npm test
-// Result: ❌ FAIL - removeEmoji is not defined
-
-// Step 2: Write minimal implementation in utils/link.ts
-export function removeEmoji(title: string): string {
-  return title.replace(/[\u{1F600}-\u{1F6FF}]/gu, '');
-}
-
-// Run: npm test
-// Result: ❌ FAIL - regex doesn't cover all emoji
-
-// Step 3: Fix implementation
-export function removeEmoji(title: string): string {
-  return title.replace(/[\u{1F000}-\u{1F9FF}]/gu, '');
-}
-
-// Run: npm test
-// Result: ✅ PASS
-
-// Step 4: Refactor if needed (tests still pass)
-export function removeEmoji(title: string): string {
-  // More comprehensive emoji regex
-  return title.replace(
-    /[\u{1F000}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu,
-    ''
-  );
-}
-
-// Run: npm test
-// Result: ✅ PASS
-```
-
-#### When TDD Might Be Skipped
-
-In rare cases, TDD might be challenging:
-- Initial UI layout/styling exploration
-- Chrome extension permissions setup
-- Manifest configuration changes
-
-**However**, even in these cases:
-- Add tests after implementation
-- Write tests for any logic extracted from UI
-- Test integration points
-
-#### Benefits of TDD for This Project
-
-1. **Confidence in Changes**: Tests catch regressions immediately
-2. **Better Design**: Writing tests first leads to better APIs
-3. **Documentation**: Tests serve as executable documentation
-4. **Refactoring Safety**: Can improve code without fear
-5. **Debugging**: Failing test pinpoints exact issue
-6. **CI/CD**: Automated testing prevents broken deployments
+- ✅ **Utils layer**: ~80% coverage (needs expansion to 100%)
+- ❌ **Component layer**: Not implemented (needs React Testing Library)
+- ❌ **Integration tests**: Not implemented
+- ❌ **E2E tests**: Not implemented (4 key workflows planned)
 
 ## Build and Development
 
@@ -563,6 +390,7 @@ npm run dev  # Test in browser
 - `CLAUDE.md` (this file) - AI agent development guide
 - `docs/architecture.md` - **Module dependencies, data flows, and architectural design**
 - `docs/development-guideline.md` - **Comprehensive development guidelines (TDD, coding standards, workflows)**
+- `docs/testing.md` - **Testing strategy (coverage goals, test layers, tools, implementation roadmap)**
 
 ## Working with WXT
 
@@ -640,6 +468,7 @@ Based on codebase analysis, here are areas for enhancement:
 ### Project Documentation
 - **[Architecture Documentation](docs/architecture.md)** - Module dependencies, layered architecture, data flows, design decisions
 - **[Development Guidelines](docs/development-guideline.md)** - TDD workflow, coding standards, testing, Git workflow, common tasks
+- **[Testing Strategy](docs/testing.md)** - Testing goals, coverage targets, test layers (unit/component/integration/E2E), tools, implementation roadmap
 
 ### External Documentation
 - [WXT Documentation](https://wxt.dev/)
@@ -689,6 +518,7 @@ npm run build && npm run zip
 > **📖 Important Resources for AI Agents:**
 > - **[docs/architecture.md](docs/architecture.md)** - Understand module dependencies before making changes
 > - **[docs/development-guideline.md](docs/development-guideline.md)** - Follow detailed development workflow and best practices
+> - **[docs/testing.md](docs/testing.md)** - Follow comprehensive testing strategy (coverage goals, test layers, tools)
 
 ### When Making Changes
 
