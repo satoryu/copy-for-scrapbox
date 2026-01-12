@@ -9,12 +9,18 @@ export default defineConfig({
     // Default to node environment for utility tests with WxtVitest
     environment: 'node',
     setupFiles: ['./vitest.setup.ts'],
-    // Use jsdom for React component tests
-    // @ts-expect-error - environmentMatchGlobs is supported but types may not be up to date
-    environmentMatchGlobs: [
-      ['**/components/**/*.test.{ts,tsx,js,jsx}', 'jsdom'],
-      ['**/popup/**/*.test.{ts,tsx,js,jsx}', 'jsdom'],
-      ['**/sidepanel/**/*.test.{ts,tsx,js,jsx}', 'jsdom'],
+    // Only include utility tests (component tests use separate config)
+    include: [
+      'utils/**/*.test.{ts,tsx,js,jsx}',
+      'entrypoints/sidepanel/utils/**/*.test.{ts,tsx,js,jsx}',
+    ],
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/.wxt/**',
+      '**/.output/**',
+      '**/components/**/*.test.{ts,tsx}',
+      '**/App.test.{ts,tsx}',
     ],
     coverage: {
       provider: 'v8',
