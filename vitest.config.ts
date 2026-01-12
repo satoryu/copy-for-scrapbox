@@ -19,6 +19,10 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
+      include: [
+        'utils/**/*.{ts,tsx,js,jsx}',
+        'entrypoints/sidepanel/utils/**/*.{ts,tsx,js,jsx}',
+      ],
       exclude: [
         'node_modules/**',
         '.output/**',
@@ -26,6 +30,9 @@ export default defineConfig({
         '**/*.config.ts',
         '**/*.config.js',
         '**/dist/**',
+        '**/*.test.{ts,tsx,js,jsx}',
+        '**/*.spec.{ts,tsx,js,jsx}',
+        'vitest.setup.ts',
       ],
       thresholds: {
         lines: 80,
