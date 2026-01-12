@@ -14,7 +14,8 @@
     "compile": "tsc --noEmit",
     "postinstall": "wxt prepare",
     "test": "vitest",
-    "test:watch": "vitest --watch"
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,11 @@
   },
   "homepage": "https://github.com/satoryu/copy-for-scrapbox#readme",
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@testing-library/user-event": "^14.6.1",
+    "@vitest/coverage-v8": "^4.0.17",
+    "jsdom": "^27.4.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.16",
     "wxt": "^0.20.13"
