@@ -1,23 +1,11 @@
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
+import { fakeBrowser } from "wxt/testing/fake-browser";
 import { getHistory, addToHistory } from "./history";
-
-// Mock storage for testing
-const mockStorage: Record<string, any> = {};
 
 describe("history", () => {
   beforeEach(() => {
-    // Clear mock storage before each test
-    Object.keys(mockStorage).forEach(key => delete mockStorage[key]);
-
-    // Mock browser.storage.local methods
-    vi.spyOn(browser.storage.local, 'get').mockImplementation((key: string) => {
-      return Promise.resolve({ [key]: mockStorage[key] });
-    });
-
-    vi.spyOn(browser.storage.local, 'set').mockImplementation((data: Record<string, any>) => {
-      Object.assign(mockStorage, data);
-      return Promise.resolve();
-    });
+    // Reset fake browser state (clears in-memory storage)
+    fakeBrowser.reset();
 
     // Mock crypto.randomUUID
     let counter = 0;
@@ -41,7 +29,7 @@ describe("history", () => {
         { id: "1", text: "test1", timestamp: 1000 },
         { id: "2", text: "test2", timestamp: 2000 },
       ];
-      mockStorage.clipboardHistory = mockHistory;
+      await browser.storage.local.set({ clipboardHistory: mockHistory });
 
       const history = await getHistory();
       expect(history).toEqual(mockHistory);
@@ -52,7 +40,6 @@ describe("history", () => {
     test("adds a new item to empty history", async () => {
       await addToHistory("test text");
 
-      expect(browser.storage.local.set).toHaveBeenCalled();
       const history = await getHistory();
       expect(history).toHaveLength(1);
       expect(history[0].text).toBe("test text");
@@ -61,9 +48,11 @@ describe("history", () => {
     });
 
     test("adds new item to the beginning of existing history", async () => {
-      mockStorage.clipboardHistory = [
-        { id: "1", text: "old text", timestamp: 1000 },
-      ];
+      await browser.storage.local.set({
+        clipboardHistory: [
+          { id: "1", text: "old text", timestamp: 1000 },
+        ],
+      });
 
       await addToHistory("new text");
 
@@ -80,7 +69,7 @@ describe("history", () => {
         text: `text-${i}`,
         timestamp: i,
       }));
-      mockStorage.clipboardHistory = existingItems;
+      await browser.storage.local.set({ clipboardHistory: existingItems });
 
       await addToHistory("new text");
 
