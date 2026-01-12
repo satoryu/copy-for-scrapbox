@@ -10,7 +10,7 @@ describe("history", () => {
     // Mock crypto.randomUUID
     let counter = 0;
     vi.spyOn(crypto, 'randomUUID').mockImplementation(() => {
-      return `test-uuid-${counter++}`;
+      return `test-uuid-${counter++}` as `${string}-${string}-${string}-${string}-${string}`;
     });
   });
 
