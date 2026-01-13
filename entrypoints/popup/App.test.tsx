@@ -29,7 +29,7 @@ describe('Popup App', () => {
     vi.clearAllMocks();
 
     // Set up i18n mock
-    vi.spyOn(browser.i18n, 'getMessage').mockImplementation((key: string) => {
+    browser.i18n.getMessage = vi.fn((key: string) => {
       const messages: Record<string, string> = {
         copyCurrentTabButtonName: 'Copy Current Tab',
         copySelectedTabsButtonName: 'Copy Selected Tabs',
@@ -45,8 +45,8 @@ describe('Popup App', () => {
     vi.mocked(tabs.getCurrentTab).mockResolvedValue([mockCurrentTab] as any);
     vi.mocked(tabs.getSelectedTabs).mockResolvedValue(mockSelectedTabs as any);
     vi.mocked(tabs.getAllTabsOnCurrentWindow).mockResolvedValue(mockAllTabs as any);
-    vi.mocked(link.createLinkForTab).mockReturnValue(mockLink);
-    vi.mocked(link.createLinksForTabs).mockReturnValue(mockLinks);
+    vi.mocked(link.createLinkForTab).mockResolvedValue(mockLink);
+    vi.mocked(link.createLinksForTabs).mockResolvedValue(mockLinks);
     vi.mocked(clipboard.writeTextToClipboard).mockResolvedValue(undefined);
   });
 

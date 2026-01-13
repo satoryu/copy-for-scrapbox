@@ -4,7 +4,7 @@ import { vi } from 'vitest';
 // Setup file for component tests (using separate config without WXT)
 
 // Mock browser API (since we're not using WxtVitest plugin)
-global.browser = {
+(global as any).browser = {
   i18n: {
     getMessage: vi.fn((key: string) => key),
   },

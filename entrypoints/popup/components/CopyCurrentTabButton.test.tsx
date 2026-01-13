@@ -20,7 +20,7 @@ describe('CopyCurrentTabButton', () => {
     vi.clearAllMocks();
 
     // Set up i18n mock
-    vi.spyOn(browser.i18n, 'getMessage').mockImplementation((key: string) => {
+    browser.i18n.getMessage = vi.fn((key: string) => {
       const messages: Record<string, string> = {
         copyCurrentTabButtonName: 'Copy Current Tab',
         copyCurrentTabMessage: 'Copied current tab!',
@@ -30,7 +30,7 @@ describe('CopyCurrentTabButton', () => {
 
     // Set up successful mock implementations by default
     vi.mocked(tabs.getCurrentTab).mockResolvedValue([mockTab] as any);
-    vi.mocked(link.createLinkForTab).mockReturnValue(mockLink);
+    vi.mocked(link.createLinkForTab).mockResolvedValue(mockLink);
     vi.mocked(clipboard.writeTextToClipboard).mockResolvedValue(undefined);
   });
 

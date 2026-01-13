@@ -10,11 +10,13 @@ describe('EmptyState', () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
-    // Set up i18n mock
-    vi.mocked(i18nUtils.getMessage).mockImplementation((key: string, fallback: string) => {
+    // Set up i18n mock (support both overload signatures)
+    vi.mocked(i18nUtils.getMessage).mockImplementation((...args: any[]) => {
       const messages: Record<string, string> = {
         sidepanelEmpty: 'No clipboard history yet',
       };
+      const key = args[0] as string;
+      const fallback = (args.length === 2 ? args[1] : args[2]) as string;
       return messages[key] || fallback;
     });
   });
