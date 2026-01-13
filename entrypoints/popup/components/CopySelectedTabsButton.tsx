@@ -12,9 +12,11 @@ const CopySelectedTabsButton: React.FC<CopySelectedTabsButtonProps> = ({ onCopie
 
   useEffect(() => {
     // Get the count of selected tabs on initial load
-    getSelectedTabs().then(tabs => {
-      setSelectedTabsCount(tabs.length);
-    });
+    getSelectedTabs()
+      .then(tabs => {
+        setSelectedTabsCount(tabs.length);
+      })
+      .catch(err => console.error(err));
   }, []);
 
   const name = browser.i18n.getMessage('copySelectedTabsButtonName');

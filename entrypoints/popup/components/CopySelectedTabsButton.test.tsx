@@ -165,6 +165,7 @@ describe('CopySelectedTabsButton', () => {
   });
 
   it('should not call onCopied if operation fails', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     vi.mocked(tabs.getSelectedTabs).mockRejectedValue(new Error('Test error'));
 
     const user = userEvent.setup();
@@ -177,6 +178,9 @@ describe('CopySelectedTabsButton', () => {
     await new Promise(resolve => setTimeout(resolve, 100));
 
     expect(mockOnCopied).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalled();
+
+    consoleErrorSpy.mockRestore();
   });
 
   it('should update count when tabs change and component re-renders', async () => {

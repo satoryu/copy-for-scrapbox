@@ -162,6 +162,7 @@ describe('CopyAllTabsButton', () => {
   });
 
   it('should not call onCopied if operation fails', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     vi.mocked(tabs.getAllTabsOnCurrentWindow).mockRejectedValue(new Error('Test error'));
 
     const user = userEvent.setup();
@@ -174,5 +175,8 @@ describe('CopyAllTabsButton', () => {
     await new Promise(resolve => setTimeout(resolve, 100));
 
     expect(mockOnCopied).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalled();
+
+    consoleErrorSpy.mockRestore();
   });
 });
