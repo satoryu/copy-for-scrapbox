@@ -73,12 +73,16 @@ This project follows **Test-Driven Development (TDD)** practices. The standard w
    ↓
 3. Refactor while keeping tests green (Refactor)
    ↓
-4. Type check with TypeScript
+4. Verify CI checks locally (REQUIRED)
+   - Run: npm run compile
+   - Run: npm run test:coverage
    ↓
 5. Manual testing in browser
    ↓
 6. Commit changes
 ```
+
+**⚠️ Step 4 is CRITICAL**: Always run the same checks that CI runs (`npm run compile` and `npm run test:coverage`) before committing. This prevents CI failures and ensures code quality.
 
 ### Daily Development Commands
 
@@ -635,32 +639,49 @@ git commit -m "docs: update architecture documentation"
 
 ### Pre-Commit Checklist
 
-Before committing, ensure:
+**⚠️ CRITICAL: Always verify CI checks locally before committing**
 
-1. ✅ All tests pass: `npm test`
-2. ✅ TypeScript compiles: `npm run compile`
-3. ✅ Manual testing in browser completed
-4. ✅ i18n messages updated (if UI text changed)
-5. ✅ Commit message is descriptive
+Before committing, you **MUST** run the same checks that CI runs and ensure they all pass:
+
+```bash
+# Run CI verification locally (REQUIRED before every commit)
+npm run compile       # TypeScript type checking (CI step 1)
+npm run test:coverage # Run tests with coverage (CI step 2)
+```
+
+Complete checklist:
+
+1. ✅ **CI Verification**: Run `npm run compile` and `npm run test:coverage` - both must succeed
+2. ✅ Manual testing in browser completed
+3. ✅ i18n messages updated (if UI text changed)
+4. ✅ Commit message is descriptive
+
+**Why this is important**:
+- Prevents CI failures after pushing
+- Catches type errors and test failures early
+- Ensures code quality before review
+- Saves time for reviewers and maintainers
 
 ### Pull Request Guidelines
 
 #### Before Creating PR
+
+**⚠️ CRITICAL: Run CI checks locally before creating PR**
 
 ```bash
 # Ensure branch is up to date
 git fetch origin
 git rebase origin/main
 
-# Run full test suite
-npm test
-
-# Type check
-npm run compile
+# Run CI verification (REQUIRED)
+npm run compile       # TypeScript type checking (CI step 1)
+npm run test:coverage # Run tests with coverage (CI step 2)
 
 # Build to verify no errors
 npm run build
 ```
+
+All CI checks must pass locally before creating the pull request.
 
 #### PR Description Template
 
