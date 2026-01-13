@@ -14,13 +14,9 @@ export default defineConfig({
       'utils/**/*.test.{ts,tsx,js,jsx}',
       'entrypoints/sidepanel/utils/**/*.test.{ts,tsx,js,jsx}',
     ],
+    // No need for extensive excludes since include is already specific
     exclude: [
       '**/node_modules/**',
-      '**/dist/**',
-      '**/.wxt/**',
-      '**/.output/**',
-      '**/components/**/*.test.{ts,tsx}',
-      '**/App.test.{ts,tsx}',
     ],
     coverage: {
       provider: 'v8',

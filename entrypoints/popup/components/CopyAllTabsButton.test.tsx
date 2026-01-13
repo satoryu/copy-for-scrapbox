@@ -14,9 +14,39 @@ vi.mock('@/utils/link');
 describe('CopyAllTabsButton', () => {
   const mockOnCopied = vi.fn();
   const mockTabs = [
-    { id: 1, url: 'https://example.com', title: 'Example 1' },
-    { id: 2, url: 'https://test.com', title: 'Test 2' },
-    { id: 3, url: 'https://demo.com', title: 'Demo 3' },
+    {
+      id: 1,
+      url: 'https://example.com',
+      title: 'Example 1',
+      index: 0,
+      pinned: false,
+      highlighted: false,
+      active: true,
+      incognito: false,
+      windowId: 1,
+    },
+    {
+      id: 2,
+      url: 'https://test.com',
+      title: 'Test 2',
+      index: 1,
+      pinned: false,
+      highlighted: false,
+      active: false,
+      incognito: false,
+      windowId: 1,
+    },
+    {
+      id: 3,
+      url: 'https://demo.com',
+      title: 'Demo 3',
+      index: 2,
+      pinned: false,
+      highlighted: false,
+      active: false,
+      incognito: false,
+      windowId: 1,
+    },
   ];
   const mockLinks = '[https://example.com Example 1]\n[https://test.com Test 2]\n[https://demo.com Demo 3]';
 
@@ -33,7 +63,7 @@ describe('CopyAllTabsButton', () => {
     });
 
     // Set up successful mock implementations by default
-    vi.mocked(tabs.getAllTabsOnCurrentWindow).mockResolvedValue(mockTabs as any);
+    vi.mocked(tabs.getAllTabsOnCurrentWindow).mockResolvedValue(mockTabs as any) // Mock Tab[] type;
     vi.mocked(link.createLinksForTabs).mockResolvedValue(mockLinks);
     vi.mocked(clipboard.writeTextToClipboard).mockResolvedValue(undefined);
   });

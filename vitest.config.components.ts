@@ -17,5 +17,32 @@ export default defineConfig({
     include: [
       'entrypoints/**/*.test.{ts,tsx}',
     ],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html', 'lcov'],
+      include: [
+        'entrypoints/**/components/**/*.{ts,tsx}',
+        'entrypoints/**/App.{ts,tsx}',
+        'entrypoints/**/hooks/**/*.{ts,tsx}',
+      ],
+      exclude: [
+        'node_modules/**',
+        '.output/**',
+        '.wxt/**',
+        '**/*.config.ts',
+        '**/*.config.js',
+        '**/dist/**',
+        '**/*.test.{ts,tsx}',
+        '**/*.spec.{ts,tsx}',
+        '**/main.tsx', // Entry point files
+        '**/hooks/**', // Hooks tested indirectly through component tests
+      ],
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        branches: 80,
+        statements: 80,
+      },
+    },
   },
 });

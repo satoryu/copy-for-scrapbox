@@ -18,6 +18,48 @@ Please take a look at [this demo](https://www.youtube.com/watch?v=prKgvy8d9-c).
 
 Visit [Chrome Web Store](https://chrome.google.com/webstore/detail/copy-for-scrapbox/kalhokahkhkmbkiliieonfdmdeajlnog) and Click `Add to Chrome` button.
 
+## Development
+
+### Running Tests
+
+```bash
+# Run all tests (utils + components)
+npm test
+
+# Run only utility tests
+npm run test:utils
+
+# Run only component tests
+npm run test:components
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests in watch mode
+npm run test:watch
+```
+
+### Type Checking
+
+```bash
+npm run compile
+```
+
+### Building
+
+```bash
+# Development mode with hot reload
+npm run dev
+
+# Production build
+npm run build
+
+# Create distributable ZIP
+npm run zip
+```
+
+For more information about development, see [CLAUDE.md](./CLAUDE.md).
+
 ## License
 
 This extension is available as open source under the terms of [MIT License](https://github.com/satoryu/copy-for-scrapbox/blob/main/LICENSE).

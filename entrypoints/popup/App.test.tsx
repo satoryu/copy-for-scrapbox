@@ -12,6 +12,7 @@ vi.mock('@/utils/tabs');
 vi.mock('@/utils/link');
 
 describe('Popup App', () => {
+  // Simplified mock data without full Browser.tabs.Tab type for test readability
   const mockCurrentTab = { id: 1, url: 'https://example.com', title: 'Example' };
   const mockSelectedTabs = [
     { id: 1, url: 'https://example.com', title: 'Example' },
@@ -41,7 +42,7 @@ describe('Popup App', () => {
       return messages[key] || key;
     });
 
-    // Set up successful mock implementations
+    // Set up successful mock implementations (using 'as any' for simplified mock Tab objects)
     vi.mocked(tabs.getCurrentTab).mockResolvedValue([mockCurrentTab] as any);
     vi.mocked(tabs.getSelectedTabs).mockResolvedValue(mockSelectedTabs as any);
     vi.mocked(tabs.getAllTabsOnCurrentWindow).mockResolvedValue(mockAllTabs as any);
@@ -61,26 +62,35 @@ describe('Popup App', () => {
     });
   });
 
-  it('should render container with correct CSS class', () => {
+  it('should render container with correct CSS class', async () => {
     const { container } = render(<App />);
 
-    const containerDiv = container.querySelector('.container');
-    expect(containerDiv).toBeInTheDocument();
+    // Wait for async renders to complete
+    await waitFor(() => {
+      const containerDiv = container.querySelector('.container');
+      expect(containerDiv).toBeInTheDocument();
+    });
   });
 
-  it('should render message box', () => {
+  it('should render message box', async () => {
     const { container } = render(<App />);
 
-    const messageBox = container.querySelector('#message-box');
-    expect(messageBox).toBeInTheDocument();
+    // Wait for async renders to complete
+    await waitFor(() => {
+      const messageBox = container.querySelector('#message-box');
+      expect(messageBox).toBeInTheDocument();
+    });
   });
 
-  it('should have empty message box initially', () => {
+  it('should have empty message box initially', async () => {
     const { container } = render(<App />);
 
-    const messageBox = container.querySelector('#message-box');
-    expect(messageBox).toBeInTheDocument();
-    expect(messageBox).toBeEmptyDOMElement();
+    // Wait for async renders to complete
+    await waitFor(() => {
+      const messageBox = container.querySelector('#message-box');
+      expect(messageBox).toBeInTheDocument();
+      expect(messageBox).toBeEmptyDOMElement();
+    });
   });
 
   it('should render exactly three button components', async () => {

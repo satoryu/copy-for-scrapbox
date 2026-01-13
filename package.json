@@ -17,7 +17,9 @@
     "test:utils": "vitest --run",
     "test:components": "vitest --config=vitest.config.components.ts --run",
     "test:watch": "vitest --watch",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "npm run test:coverage:utils && npm run test:coverage:components",
+    "test:coverage:utils": "vitest --coverage --run",
+    "test:coverage:components": "vitest --config=vitest.config.components.ts --coverage --run"
   },
   "repository": {
     "type": "git",

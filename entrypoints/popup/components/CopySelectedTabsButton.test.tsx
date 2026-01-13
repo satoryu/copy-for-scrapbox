@@ -14,8 +14,28 @@ vi.mock('@/utils/link');
 describe('CopySelectedTabsButton', () => {
   const mockOnCopied = vi.fn();
   const mockTabs = [
-    { id: 1, url: 'https://example.com', title: 'Example 1' },
-    { id: 2, url: 'https://test.com', title: 'Test 2' },
+    {
+      id: 1,
+      url: 'https://example.com',
+      title: 'Example 1',
+      index: 0,
+      pinned: false,
+      highlighted: true,
+      active: false,
+      incognito: false,
+      windowId: 1,
+    },
+    {
+      id: 2,
+      url: 'https://test.com',
+      title: 'Test 2',
+      index: 1,
+      pinned: false,
+      highlighted: true,
+      active: false,
+      incognito: false,
+      windowId: 1,
+    },
   ];
   const mockLinks = '[https://example.com Example 1]\n[https://test.com Test 2]';
 
@@ -32,7 +52,7 @@ describe('CopySelectedTabsButton', () => {
     });
 
     // Set up successful mock implementations by default
-    vi.mocked(tabs.getSelectedTabs).mockResolvedValue(mockTabs as any);
+    vi.mocked(tabs.getSelectedTabs).mockResolvedValue(mockTabs as any) // Mock Tab[] type;
     vi.mocked(link.createLinksForTabs).mockResolvedValue(mockLinks);
     vi.mocked(clipboard.writeTextToClipboard).mockResolvedValue(undefined);
   });
@@ -59,11 +79,16 @@ describe('CopySelectedTabsButton', () => {
     expect(tabs.getSelectedTabs).toHaveBeenCalledOnce();
   });
 
-  it('should show count 0 initially before useEffect completes', () => {
+  it('should show count 0 initially before useEffect completes', async () => {
     render(<CopySelectedTabsButton onCopied={mockOnCopied} />);
 
     const button = screen.getByRole('button', { name: 'Copy Selected Tabs (0)' });
     expect(button).toBeInTheDocument();
+
+    // Wait for useEffect to complete to avoid act warnings
+    await waitFor(() => {
+      expect(tabs.getSelectedTabs).toHaveBeenCalled();
+    });
   });
 
   it('should call getSelectedTabs when clicked', async () => {
@@ -164,11 +189,11 @@ describe('CopySelectedTabsButton', () => {
 
     // Update mock to return different count
     const newMockTabs = [
-      { id: 1, url: 'https://example.com', title: 'Example' },
-      { id: 2, url: 'https://test.com', title: 'Test' },
-      { id: 3, url: 'https://demo.com', title: 'Demo' },
+      { id: 1, url: 'https://example.com', title: 'Example', index: 0, pinned: false, highlighted: true, active: false, incognito: false, windowId: 1 },
+      { id: 2, url: 'https://test.com', title: 'Test', index: 1, pinned: false, highlighted: true, active: false, incognito: false, windowId: 1 },
+      { id: 3, url: 'https://demo.com', title: 'Demo', index: 2, pinned: false, highlighted: true, active: false, incognito: false, windowId: 1 },
     ];
-    vi.mocked(tabs.getSelectedTabs).mockResolvedValue(newMockTabs as any);
+    vi.mocked(tabs.getSelectedTabs).mockResolvedValue(newMockTabs as any) // Mock Tab[] type;
 
     // Note: This test documents current behavior - the count doesn't update
     // automatically after initial load. This is by design (useEffect runs once).

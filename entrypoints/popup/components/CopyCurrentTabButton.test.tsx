@@ -13,7 +13,17 @@ vi.mock('@/utils/link');
 
 describe('CopyCurrentTabButton', () => {
   const mockOnCopied = vi.fn();
-  const mockTab = { id: 1, url: 'https://example.com', title: 'Example' };
+  const mockTab = {
+    id: 1,
+    url: 'https://example.com',
+    title: 'Example',
+    index: 0,
+    pinned: false,
+    highlighted: false,
+    active: true,
+    incognito: false,
+    windowId: 1,
+  };
   const mockLink = '[https://example.com Example]';
 
   beforeEach(() => {
@@ -29,6 +39,7 @@ describe('CopyCurrentTabButton', () => {
     });
 
     // Set up successful mock implementations by default
+    // Using 'as any' for simplified mock Tab object (test doesn't need all Tab properties)
     vi.mocked(tabs.getCurrentTab).mockResolvedValue([mockTab] as any);
     vi.mocked(link.createLinkForTab).mockResolvedValue(mockLink);
     vi.mocked(clipboard.writeTextToClipboard).mockResolvedValue(undefined);
